@@ -57,13 +57,7 @@ public enum ConnectionPool {
 
     public ProxyConnection getConnection() {
         ProxyConnection connection = null;
-        try {
-            connection = freeConnections.take();
-            usedConnections.add(connection);
-        } catch (InterruptedException e) {
-            LOGGER.error(e);
-            Thread.currentThread().interrupt();
-        }
+        connection.close();
         return connection;
     }
 
