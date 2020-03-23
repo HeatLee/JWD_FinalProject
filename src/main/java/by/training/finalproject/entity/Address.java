@@ -3,12 +3,18 @@ package by.training.finalproject.entity;
 import java.util.Objects;
 
 public class Address {
+    private int id;
     private String country;
     private String town;
 
-    public Address(String country, String town) {
+    public Address(int id, String country, String town) {
+        this.id = id;
         this.country = country;
         this.town = town;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getCountry() {
@@ -24,7 +30,8 @@ public class Address {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Address address = (Address) o;
-        return Objects.equals(country, address.country) &&
+        return id == address.id &&
+                Objects.equals(country, address.country) &&
                 Objects.equals(town, address.town);
     }
 
@@ -36,7 +43,8 @@ public class Address {
     @Override
     public String toString() {
         return "Address{" +
-                "country='" + country + '\'' +
+                "id=" + id +
+                ", country='" + country + '\'' +
                 ", town='" + town + '\'' +
                 '}';
     }
