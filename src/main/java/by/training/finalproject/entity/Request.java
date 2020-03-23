@@ -10,6 +10,15 @@ public class Request {
     private Date departure;
     private int stars;
     private Address address;
+    private int reservationUserId;
+
+    public int getReservationUserId() {
+        return reservationUserId;
+    }
+
+    public void setReservationUserId(int reservationUserId) {
+        this.reservationUserId = reservationUserId;
+    }
 
     public int getId() {
         return id;
@@ -55,6 +64,10 @@ public class Request {
         return address;
     }
 
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -63,6 +76,7 @@ public class Request {
         return id == request.id &&
                 capacity == request.capacity &&
                 stars == request.stars &&
+                reservationUserId == request.reservationUserId &&
                 Objects.equals(checkIn, request.checkIn) &&
                 Objects.equals(departure, request.departure) &&
                 Objects.equals(address, request.address);
@@ -70,11 +84,7 @@ public class Request {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, capacity, checkIn, departure, stars, address);
-    }
-
-    public void setAddress(Address address) {
-        this.address = address;
+        return Objects.hash(id, capacity, checkIn, departure, stars, address, reservationUserId);
     }
 
     @Override
@@ -86,6 +96,7 @@ public class Request {
                 ", departure=" + departure +
                 ", stars=" + stars +
                 ", address=" + address +
+                ", reservationUserId=" + reservationUserId +
                 '}';
     }
 }
