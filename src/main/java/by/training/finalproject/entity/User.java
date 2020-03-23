@@ -63,7 +63,12 @@ public class User {
 
     @Override
     public int hashCode() {
-        return Objects.hash(userId, login, password, email, userRole);
+        int result = userId;
+        result = 31 * result + (login != null ? login.hashCode() : 0);
+        result = 31 * result + (password != null ? password.hashCode() : 0);
+        result = 31 * result + (email != null ? email.hashCode() : 0);
+        result = 31 * result + (userRole != null ? userRole.hashCode() : 0);
+        return result;
     }
 
     @Override

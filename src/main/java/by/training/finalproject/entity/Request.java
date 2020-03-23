@@ -84,7 +84,14 @@ public class Request {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, capacity, checkIn, departure, stars, address, reservationUserId);
+        int result = id;
+        result = 31 * result + capacity;
+        result = 31 * result + stars;
+        result = 31 * result + (reservationUser != null ? reservationUser.hashCode() : 0);
+        result = 31 * result + (checkIn != null ? checkIn.hashCode() : 0);
+        result = 31 * result + (departure != null ? departure.hashCode() : 0);
+        result = 31 * result + (address != null ? address.hashCode() : 0);
+        return result;
     }
 
     @Override

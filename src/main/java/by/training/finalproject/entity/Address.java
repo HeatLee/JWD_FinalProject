@@ -37,7 +37,10 @@ public class Address {
 
     @Override
     public int hashCode() {
-        return Objects.hash(country, town);
+        int result = id;
+        result = 31 * result + (country != null ? country.hashCode() : 0);
+        result = 31 * result + (town != null ? town.hashCode() : 0);
+        return result;
     }
 
     @Override
