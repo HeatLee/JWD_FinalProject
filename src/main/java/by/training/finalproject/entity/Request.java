@@ -10,14 +10,14 @@ public class Request {
     private Date departure;
     private int stars;
     private Address address;
-    private int reservationUserId;
+    private User reservationUser;
 
-    public int getReservationUserId() {
-        return reservationUserId;
+    public User getReservationUser() {
+        return reservationUser;
     }
 
-    public void setReservationUserId(int reservationUserId) {
-        this.reservationUserId = reservationUserId;
+    public void setReservationUser(User reservationUser) {
+        this.reservationUser = reservationUser;
     }
 
     public int getId() {
@@ -76,7 +76,7 @@ public class Request {
         return id == request.id &&
                 capacity == request.capacity &&
                 stars == request.stars &&
-                reservationUserId == request.reservationUserId &&
+                Objects.equals(reservationUser, request.reservationUser) &&
                 Objects.equals(checkIn, request.checkIn) &&
                 Objects.equals(departure, request.departure) &&
                 Objects.equals(address, request.address);
@@ -96,7 +96,7 @@ public class Request {
                 ", departure=" + departure +
                 ", stars=" + stars +
                 ", address=" + address +
-                ", reservationUserId=" + reservationUserId +
+                ", reservationUserId=" + reservationUser +
                 '}';
     }
 }
