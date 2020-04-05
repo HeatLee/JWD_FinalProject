@@ -1,9 +1,10 @@
 package by.training.finalproject.entity;
 
 public enum UserRole {
-    ADMIN(0),
-    USER(1),
-    GUEST(2);
+    ADMIN(2),
+    USER(3),
+    GUEST(4),
+    UNSUPPORTED_INDEX(0);
 
     private int id;
 
