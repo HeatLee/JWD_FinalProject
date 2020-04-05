@@ -8,23 +8,32 @@ public class Hotel {
     private int stars;
     private Address address;
 
-    public Hotel(int id, String name, int stars, Address address) {
+    public void setId(int id) {
         this.id = id;
-        this.name = name;
-        this.stars = stars;
-        this.address = address;
     }
 
     public int getId() {
         return id;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public String getName() {
         return name;
     }
 
+    public void setStars(int stars) {
+        this.stars = stars;
+    }
+
     public int getStars() {
         return stars;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
     }
 
     public Address getAddress() {
