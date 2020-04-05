@@ -10,14 +10,6 @@ public class Room {
     private BigDecimal price;
     private RoomStatus status;
 
-    public Room(int id, int capacity, Hotel hotel, BigDecimal price, RoomStatus status) {
-        this.id = id;
-        this.capacity = capacity;
-        this.hotel = hotel;
-        this.price = price;
-        this.status = status;
-    }
-
     public int getId() {
         return id;
     }
@@ -36,6 +28,26 @@ public class Room {
 
     public RoomStatus getStatus() {
         return status;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setCapacity(int capacity) {
+        this.capacity = capacity;
+    }
+
+    public void setHotel(Hotel hotel) {
+        this.hotel = hotel;
+    }
+
+    public void setPrice(BigDecimal price) {
+        this.price = price;
+    }
+
+    public void setStatus(RoomStatus status) {
+        this.status = status;
     }
 
     @Override
