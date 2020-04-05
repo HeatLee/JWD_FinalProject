@@ -1,9 +1,10 @@
 package by.training.finalproject.entity;
 
 public enum RoomStatus {
-    AVAILABLE(0),
-    RESERVED(1),
-    PAID(2);
+    AVAILABLE(1),
+    RESERVED(2),
+    PAID(3),
+    UNSUPPORTED_INDEX(0);;
 
     private int statusId;
 
