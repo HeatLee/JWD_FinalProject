@@ -15,4 +15,13 @@ public enum RoomStatus {
     public int getStatusId() {
         return statusId;
     }
+
+    public static RoomStatus getStatusById(int statusId) {
+        for (RoomStatus status : RoomStatus.values()) {
+            if (status.getStatusId() == statusId) {
+                return status;
+            }
+        }
+        return UNSUPPORTED_INDEX;
+    }
 }

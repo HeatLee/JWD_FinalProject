@@ -15,4 +15,14 @@ public enum UserRole {
     public int getId() {
         return id;
     }
+
+    public static UserRole getRoleById(int id) {
+        for (UserRole role :
+                UserRole.values()) {
+            if (role.getId() == id) {
+                return role;
+            }
+        }
+        return UNSUPPORTED_INDEX;
+    }
 }
