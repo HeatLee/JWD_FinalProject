@@ -7,12 +7,6 @@ public class Address {
     private String country;
     private String town;
 
-    public Address(int id, String country, String town) {
-        this.id = id;
-        this.country = country;
-        this.town = town;
-    }
-
     public int getId() {
         return id;
     }
@@ -23,6 +17,18 @@ public class Address {
 
     public String getTown() {
         return town;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public void setTown(String town) {
+        this.town = town;
     }
 
     @Override
