@@ -9,6 +9,22 @@ public class User {
     private String email;
     private UserRole userRole;
 
+    public User(int userId, String login, String password, String email, UserRole userRole) {
+        this.userId = userId;
+        this.login = login;
+        this.password = password;
+        this.email = email;
+        this.userRole = userRole;
+    }
+
+    public User(User user) {
+        this.userId = user.userId;
+        this.login = user.login;
+        this.password = user.password;
+        this.email = user.email;
+        this.userRole = UserRole.getRoleById(user.userRole.getId());
+    }
+
     public int getUserId() {
         return userId;
     }

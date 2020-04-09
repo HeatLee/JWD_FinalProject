@@ -7,6 +7,18 @@ public class Address {
     private String country;
     private String town;
 
+    public Address(int id, String country, String town) {
+        this.id = id;
+        this.country = country;
+        this.town = town;
+    }
+
+    public Address(Address address) {
+        this.id = address.id;
+        this.country = address.country;
+        this.town = address.town;
+    }
+
     public int getId() {
         return id;
     }

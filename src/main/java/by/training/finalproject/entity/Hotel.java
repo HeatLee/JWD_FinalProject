@@ -8,6 +8,20 @@ public class Hotel {
     private int stars;
     private Address address;
 
+    public Hotel(int id, String name, int stars, Address address) {
+        this.id = id;
+        this.name = name;
+        this.stars = stars;
+        this.address = address;
+    }
+
+    public Hotel(Hotel hotel) {
+        this.id = hotel.id;
+        this.name = hotel.name;
+        this.stars = hotel.stars;
+        this.address = new Address(hotel.address);
+    }
+
     public void setId(int id) {
         this.id = id;
     }

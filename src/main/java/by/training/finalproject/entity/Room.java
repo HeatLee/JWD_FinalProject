@@ -10,6 +10,22 @@ public class Room {
     private BigDecimal price;
     private RoomStatus status;
 
+    public Room(int id, int capacity, Hotel hotel, BigDecimal price, RoomStatus status) {
+        this.id = id;
+        this.capacity = capacity;
+        this.hotel = hotel;
+        this.price = price;
+        this.status = status;
+    }
+
+    public Room(Room room) {
+        this.id = room.id;
+        this.capacity = room.capacity;
+        this.hotel = new Hotel(room.hotel);
+        this.price = BigDecimal.valueOf(room.price.doubleValue());
+        this.status = RoomStatus.getStatusById(room.status.getStatusId());
+    }
+
     public int getId() {
         return id;
     }
