@@ -3,25 +3,34 @@ package by.training.finalproject.builder;
 import by.training.finalproject.entity.Address;
 import by.training.finalproject.entity.Hotel;
 
-public class HotelBuilder extends AbstractBuilder<Hotel> {
+public class HotelBuilder {
 
-    public HotelBuilder() {
-        businessEntity = new Hotel();
+    private int id;
+    private String name;
+    private int stars;
+    private Address address;
+
+    public HotelBuilder buildHotelId(int id) {
+        this.id = id;
+        return this;
     }
 
-    public void buildHotelId(int id) {
-        businessEntity.setId(id);
+    public HotelBuilder buildName(String name) {
+        this.name = name;
+        return this;
     }
 
-    public void buildName(String name) {
-        businessEntity.setName(name);
+    public HotelBuilder buildStars(int stars) {
+        this.stars = stars;
+        return this;
     }
 
-    public void buildStars(int stars) {
-        businessEntity.setStars(stars);
+    public HotelBuilder buildAddress(Address address) {
+        this.address = new Address(address);
+        return this;
     }
 
-    public void buildAddress(Address address) {
-        businessEntity.setAddress(address);
+    public Hotel build() {
+        return new Hotel(id, name, stars, address);
     }
 }

@@ -6,28 +6,39 @@ import by.training.finalproject.entity.RoomStatus;
 
 import java.math.BigDecimal;
 
-public class RoomBuilder extends AbstractBuilder<Room> {
-    public RoomBuilder() {
-        businessEntity = new Room();
+public class RoomBuilder {
+    private int id;
+    private int capacity;
+    private Hotel hotel;
+    private BigDecimal price;
+    private RoomStatus status;
+
+    public RoomBuilder buildRoomId(int id) {
+        this.id = id;
+        return this;
     }
 
-    public void buildRoomId(int id) {
-        businessEntity.setId(id);
+    public RoomBuilder buildCapacity(int capacity) {
+        this.capacity = capacity;
+        return this;
     }
 
-    public void buildCapacity(int capacity) {
-        businessEntity.setCapacity(capacity);
+    public RoomBuilder buildHotel(Hotel hotel) {
+        this.hotel = new Hotel(hotel);
+        return this;
     }
 
-    public void buildHotel(Hotel hotel) {
-        businessEntity.setHotel(hotel);
+    public RoomBuilder buildPrice(BigDecimal price) {
+        this.price = BigDecimal.valueOf(price.doubleValue());
+        return this;
     }
 
-    public void buildPrice(BigDecimal price) {
-        businessEntity.setPrice(price);
+    public RoomBuilder buildStatus(RoomStatus status) {
+        this.status = RoomStatus.getStatusById(status.getStatusId());
+        return this;
     }
 
-    public void buildStatus(RoomStatus status) {
-        businessEntity.setStatus(status);
+    public Room build() {
+        return new Room(id, capacity, hotel, price, status);
     }
 }

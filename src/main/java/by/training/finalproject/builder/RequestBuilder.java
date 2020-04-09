@@ -6,36 +6,53 @@ import by.training.finalproject.entity.User;
 
 import java.util.Date;
 
-public class RequestBuilder extends AbstractBuilder<Request> {
-    public RequestBuilder() {
-        businessEntity = new Request();
+public class RequestBuilder {
+
+    private int id;
+    private int capacity;
+    private Date checkIn;
+    private Date departure;
+    private int stars;
+    private Address address;
+    private User reservationUser;
+
+    public RequestBuilder buildRequestId(int id) {
+        this.id = id;
+        return this;
     }
 
-    public void buildRequestId(int id) {
-        businessEntity.setId(id);
+    public RequestBuilder buildCapacity(int capacity) {
+        this.capacity = capacity;
+        return this;
     }
 
-    public void buildCapacity(int capacity) {
-        businessEntity.setCapacity(capacity);
+    public RequestBuilder buildCheckInDate(Date date) {
+        this.checkIn = (Date) date.clone();
+        return this;
     }
 
-    public void buildCheckInDate(Date date) {
-        businessEntity.setCheckIn(date);
+    public RequestBuilder buildDepartureDate(Date date) {
+        this.departure = (Date)date.clone();
+        return this;
     }
 
-    public void buildDepartureDate(Date date) {
-        businessEntity.setDeparture(date);
+    public RequestBuilder buildStars(int stars) {
+        this.stars = stars;
+        return this;
     }
 
-    public void buildStars(int stars) {
-        businessEntity.setStars(stars);
+    public RequestBuilder buildAddress(Address address) {
+        this.address = new Address(address);
+        return this;
     }
 
-    public void buildAddress(Address address) {
-        businessEntity.setAddress(address);
+    public RequestBuilder buildReservationUser(User user) {
+        this.reservationUser = new User(user);
+        return this;
     }
 
-    public void buildReservationUser(User user) {
-        businessEntity.setReservationUser(user);
+    public Request build() {
+        return new Request(id, capacity, checkIn, departure, stars, address, reservationUser);
     }
+
 }
