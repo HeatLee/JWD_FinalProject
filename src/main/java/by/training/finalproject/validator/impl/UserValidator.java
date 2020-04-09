@@ -1,0 +1,53 @@
+package by.training.finalproject.validator.impl;
+
+import by.training.finalproject.entity.User;
+import by.training.finalproject.entity.UserRole;
+import by.training.finalproject.exception.ValidatorException;
+import by.training.finalproject.validator.Validator;
+
+public class UserValidator implements Validator<User> {
+
+    private static final String LOGIN_REGEX = "^[a-zA-Z0-9_]{5,16}$";
+    private static final String PASSWORD_REGEX = "^[a-zA-Z0-9]{8,32}$";
+    private static final String EMAIL_REGEX =
+            "^[\\\\w!#$%&’*+/=?`{|}~^-]+(?:\\\\.[\\\\w!#$%&’*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\\\.)+[a-zA-Z]{2,6}$";
+
+    @Override
+    public void validate(User user) throws ValidatorException{
+        isValidEmail(user.getEmail());
+        isValidLogin(user.getLogin());
+        isValidPassword(user.getPassword());
+        isValidUserId(user.getUserId());
+        isValidUserRole(user.getUserRole());
+    }
+
+    private void isValidLogin(String login) throws ValidatorException {
+        if (!login.matches(LOGIN_REGEX)) {
+            throw new ValidatorException("Invalid login format");
+        }
+    }
+
+    private void isValidPassword(String password) throws ValidatorException {
+        if (!password.matches(PASSWORD_REGEX)) {
+            throw new ValidatorException("Invalid password format");
+        }
+    }
+
+    private void isValidEmail(String email) throws ValidatorException {
+        if (!email.matches(EMAIL_REGEX)) {
+            throw new ValidatorException("Invalid email format");
+        }
+    }
+
+    private void  isValidUserId(int id) throws ValidatorException {
+        if (!(id >= 0)) {
+            throw new ValidatorException("Invalid id value");
+        }
+    }
+
+    private void isValidUserRole(UserRole userRole) throws ValidatorException {
+        if (UserRole.UNSUPPORTED_INDEX.equals(userRole)) {
+            throw new ValidatorException("Invalid user role");
+        }
+    }
+}
