@@ -7,11 +7,11 @@ import java.util.List;
 public interface CommonService<T>{
     T add(T t) throws ServiceException;
 
-    T update(T t);
+    T update(T t) throws ServiceException;
 
-    T delete(T t);
+    T delete(T t) throws ServiceException;
 
-    T getById(int id);
+    T getById(int id) throws ServiceException;
 
-    List<T> getAll();
+    List<T> getAll() throws ServiceException;
 }
