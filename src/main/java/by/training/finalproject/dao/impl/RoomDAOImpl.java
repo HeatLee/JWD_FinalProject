@@ -24,6 +24,15 @@ public class RoomDAOImpl extends AbstractCommonDAO<Room> {
 
     private static final Logger LOGGER = Logger.getLogger(RoomDAOImpl.class);
 
+    private static final RoomDAOImpl DAO;
+    static {
+        DAO = new RoomDAOImpl();
+    }
+
+    public static RoomDAOImpl getInstance() {
+        return DAO;
+    }
+
     private RoomDAOImpl() {
     }
 
