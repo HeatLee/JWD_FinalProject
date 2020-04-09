@@ -1,9 +1,10 @@
 package by.training.finalproject.entity;
 
 public enum RoomStatus {
-    AVAILABLE(0),
-    RESERVED(1),
-    PAID(2);
+    AVAILABLE(1),
+    RESERVED(2),
+    PAID(3),
+    UNSUPPORTED_INDEX(0);;
 
     private int statusId;
 
@@ -13,5 +14,14 @@ public enum RoomStatus {
 
     public int getStatusId() {
         return statusId;
+    }
+
+    public static RoomStatus getStatusById(int statusId) {
+        for (RoomStatus status : RoomStatus.values()) {
+            if (status.getStatusId() == statusId) {
+                return status;
+            }
+        }
+        return UNSUPPORTED_INDEX;
     }
 }
