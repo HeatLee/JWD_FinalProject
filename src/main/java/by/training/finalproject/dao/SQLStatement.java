@@ -19,6 +19,76 @@ public enum SQLStatement {
     GET_USER_BY_EMAIL("SELECT user_id, login, password, email, user_role_id " +
             "FROM reservation_user " +
             "WHERE login = ?"),
+    ADD_ROOM("INSERT INTO hotel_room (room_capacity, hotel_id, room_price, room_status_id)" +
+            " VALUES (?, ?, ?, ?)"),
+    UPDATE_ROOM_BY_ID("UPDATE hotel_room t " +
+            "SET t.room_capacity = ?, t.hotel_id = ?, t.room_price = ? , t.room_status_id = ? " +
+            "WHERE t.hotel_room_id = ?"),
+    DELETE_ROOM_BY_ID("DELETE FROM hotel_room " +
+            "WHERE hotel_room_id = ?"),
+    GET_ROOM_BY_ID("SELECT hotel_room.hotel_room_id,\n" +
+            "       hotel_room.room_capacity,\n" +
+            "       hotel_room.room_price,\n" +
+            "       hotel_room.room_status_id,\n" +
+            "       hotel.hotel_id,\n" +
+            "       hotel.hotel_name,\n" +
+            "       hotel.stars,\n" +
+            "       address.address_id,\n" +
+            "       address.country,\n" +
+            "       address.town\n" +
+            "FROM hotel_room,\n" +
+            "     hotel,\n" +
+            "     address\n" +
+            "WHERE hotel_room.hotel_id = hotel.hotel_id\n" +
+            "  AND hotel.address_id = address.address_id\n" +
+            "  AND hotel_room.hotel_room_id = ?"),
+    GET_ROOM_LIST("SELECT hotel_room.hotel_room_id,\n" +
+            "       hotel_room.room_capacity,\n" +
+            "       hotel_room.room_price,\n" +
+            "       hotel_room.room_status_id,\n" +
+            "       hotel.hotel_id,\n" +
+            "       hotel.hotel_name,\n" +
+            "       hotel.stars,\n" +
+            "       address.address_id,\n" +
+            "       address.country,\n" +
+            "       address.town\n" +
+            "FROM hotel_room,\n" +
+            "     hotel,\n" +
+            "     address\n" +
+            "WHERE hotel_room.hotel_id = hotel.hotel_id\n" +
+            "  AND hotel.address_id = address.address_id"),
+    GET_ROOM_LIST_BY_STATUS("SELECT hotel_room.hotel_room_id,\n" +
+            "       hotel_room.room_capacity,\n" +
+            "       hotel_room.room_price,\n" +
+            "       hotel_room.room_status_id,\n" +
+            "       hotel.hotel_id,\n" +
+            "       hotel.hotel_name,\n" +
+            "       hotel.stars,\n" +
+            "       address.address_id,\n" +
+            "       address.country,\n" +
+            "       address.town\n" +
+            "FROM hotel_room,\n" +
+            "     hotel,\n" +
+            "     address\n" +
+            "WHERE hotel_room.hotel_id = hotel.hotel_id\n" +
+            "  AND hotel.address_id = address.address_id\n" +
+            "  AND hotel_room.room_status_id = ?"),
+    GET_ROOM_LIST_BY_CAPACITY("SELECT hotel_room.hotel_room_id,\n" +
+            "       hotel_room.room_capacity,\n" +
+            "       hotel_room.room_price,\n" +
+            "       hotel_room.room_status_id,\n" +
+            "       hotel.hotel_id,\n" +
+            "       hotel.hotel_name,\n" +
+            "       hotel.stars,\n" +
+            "       address.address_id,\n" +
+            "       address.country,\n" +
+            "       address.town\n" +
+            "FROM hotel_room,\n" +
+            "     hotel,\n" +
+            "     address\n" +
+            "WHERE hotel_room.hotel_id = hotel.hotel_id\n" +
+            "  AND hotel.address_id = address.address_id\n" +
+            "  AND hotel_room.room_capacity = ?"),
     ;
 
     private String query;
