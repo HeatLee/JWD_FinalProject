@@ -3,29 +3,39 @@ package by.training.finalproject.builder;
 import by.training.finalproject.entity.User;
 import by.training.finalproject.entity.UserRole;
 
-public class UserBuilder extends AbstractBuilder<User>{
+public class UserBuilder{
+    private int userId;
+    private String login;
+    private String password;
+    private String email;
+    private UserRole userRole;
 
-    public UserBuilder() {
-        this.businessEntity = new User();
+    public UserBuilder buildUserId(int id) {
+        userId = id;
+        return this;
     }
 
-    public void buildUserId(int id) {
-        businessEntity.setUserId(id);
+    public UserBuilder buildLogin(String login) {
+        this.login = login;
+        return this;
     }
 
-    public void buildLogin(String login) {
-        businessEntity.setLogin(login);
+    public UserBuilder buildPassword(String password) {
+        this.password = password;
+        return this;
     }
 
-    public void buildPassword(String password) {
-        businessEntity.setPassword(password);
+    public UserBuilder buildEmail(String email) {
+        this.email = email;
+        return this;
     }
 
-    public void buildEmail(String email) {
-        businessEntity.setEmail(email);
+    public UserBuilder buildRole(UserRole userRole) {
+        this.userRole = UserRole.getRoleById(userRole.getId());
+        return this;
     }
 
-    public void buildRole(UserRole userRole) {
-        businessEntity.setUserRole(userRole);
+    public User build() {
+        return new User(userId, login, password, email, userRole);
     }
 }

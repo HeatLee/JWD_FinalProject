@@ -23,7 +23,7 @@ public class UserDAOImpl extends AbstractCommonDAO<User> {
     private UserDAOImpl() {
     }
 
-    public User readByLogin(String login) throws DAOException{
+    public User readByLogin(String login) throws DAOException {
         try (Connection connection = POOL.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(SQLStatement.GET_USER_BY_LOGIN.getQuery());
             try (ResultSet resultSet = statement.executeQuery()) {
@@ -38,7 +38,7 @@ public class UserDAOImpl extends AbstractCommonDAO<User> {
         }
     }
 
-    public User readByEmail(String email) throws DAOException{
+    public User readByEmail(String email) throws DAOException {
         try (Connection connection = POOL.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(SQLStatement.GET_USER_BY_EMAIL.getQuery());
             try (ResultSet resultSet = statement.executeQuery()) {
@@ -97,12 +97,12 @@ public class UserDAOImpl extends AbstractCommonDAO<User> {
 
     @Override
     protected User buildEntity(ResultSet resultSet) throws SQLException {
-        UserBuilder builder = new UserBuilder(); //todo add factory for builder
-        builder.buildLogin(resultSet.getString(SQLTableLabel.USER_LOGIN.getLabel()));
-        builder.buildPassword(resultSet.getString(SQLTableLabel.USER_PASSWORD.getLabel()));
-        builder.buildEmail(resultSet.getString(SQLTableLabel.USER_EMAIL.getLabel()));
-        builder.buildRole(UserRole.getRoleById(resultSet.getInt(SQLTableLabel.USER_ROLE_ID.getLabel())));
-        builder.buildUserId(resultSet.getInt(SQLTableLabel.USER_ID.getLabel()));
-        return builder.build();
+        return new UserBuilder()
+                .buildLogin(resultSet.getString(SQLTableLabel.USER_LOGIN.getLabel()))
+                .buildPassword(resultSet.getString(SQLTableLabel.USER_PASSWORD.getLabel()))
+                .buildEmail(resultSet.getString(SQLTableLabel.USER_EMAIL.getLabel()))
+                .buildRole(UserRole.getRoleById(resultSet.getInt(SQLTableLabel.USER_ROLE_ID.getLabel())))
+                .buildUserId(resultSet.getInt(SQLTableLabel.USER_ID.getLabel()))
+                .build();
     }
 }

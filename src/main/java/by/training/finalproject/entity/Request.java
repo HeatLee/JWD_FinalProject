@@ -12,6 +12,26 @@ public class Request {
     private Address address;
     private User reservationUser;
 
+    public Request(int id, int capacity, Date checkIn, Date departure, int stars, Address address, User reservationUser) {
+        this.id = id;
+        this.capacity = capacity;
+        this.checkIn = checkIn;
+        this.departure = departure;
+        this.stars = stars;
+        this.address = address;
+        this.reservationUser = reservationUser;
+    }
+
+    public Request(Request request) {
+        this.id = request.id;
+        this.capacity = request.capacity;
+        this.checkIn = (Date) request.checkIn.clone();
+        this.departure = (Date) request.departure.clone();
+        this.stars = request.stars;
+        this.address = new Address(request.address);
+        this.reservationUser = new User(request.reservationUser);
+    }
+
     public User getReservationUser() {
         return reservationUser;
     }

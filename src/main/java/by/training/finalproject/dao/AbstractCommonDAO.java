@@ -1,6 +1,5 @@
 package by.training.finalproject.dao;
 
-import by.training.finalproject.builder.AbstractBuilder;
 import by.training.finalproject.exception.DAOException;
 import by.training.finalproject.pool.ConnectionPool;
 import org.apache.log4j.Logger;
@@ -15,7 +14,7 @@ import java.util.List;
 public abstract class AbstractCommonDAO<T> implements CommonDAO<T>{
 
     protected final static ConnectionPool POOL = ConnectionPool.INSTANCE;
-    private final static Logger LOGGER = Logger.getLogger(AbstractBuilder.class);
+    private final static Logger LOGGER = Logger.getLogger(AbstractCommonDAO.class);
 
     @Override
     public void add(T t) throws DAOException {

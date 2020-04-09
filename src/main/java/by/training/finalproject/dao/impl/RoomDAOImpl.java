@@ -13,7 +13,6 @@ import by.training.finalproject.entity.RoomStatus;
 import by.training.finalproject.exception.DAOException;
 import org.apache.log4j.Logger;
 
-import java.awt.print.PrinterAbortException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -41,7 +40,7 @@ public class RoomDAOImpl extends AbstractCommonDAO<Room> {
 
 
     public List<Room> readByCapacity(int capacity) throws DAOException {
-        try (Connection connection = POOL.getConnection()){
+        try (Connection connection = POOL.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(SQLStatement.GET_ROOM_LIST_BY_CAPACITY.getQuery());
             statement.setInt(1, capacity);
             return readListFromResultSet(statement);
@@ -87,30 +86,30 @@ public class RoomDAOImpl extends AbstractCommonDAO<Room> {
 
     @Override
     protected Room buildEntity(ResultSet resultSet) throws SQLException {
-        RoomBuilder builder = new RoomBuilder(); // todo add builder factory
-        builder.buildRoomId(resultSet.getInt(SQLTableLabel.ROOM_ID.getLabel()));
-        builder.buildCapacity(resultSet.getInt(SQLTableLabel.ROOM_CAPACITY.getLabel()));
-        builder.buildPrice(resultSet.getBigDecimal(SQLTableLabel.ROOM_PRICE.getLabel()));
-        builder.buildStatus(RoomStatus.getStatusById(resultSet.getInt(SQLTableLabel.ROOM_STATUS_ID.getLabel())));
-        builder.buildHotel(buildHotel(resultSet));
-        return builder.build();
+        return new RoomBuilder()
+                .buildRoomId(resultSet.getInt(SQLTableLabel.ROOM_ID.getLabel()))
+                .buildCapacity(resultSet.getInt(SQLTableLabel.ROOM_CAPACITY.getLabel()))
+                .buildPrice(resultSet.getBigDecimal(SQLTableLabel.ROOM_PRICE.getLabel()))
+                .buildStatus(RoomStatus.getStatusById(resultSet.getInt(SQLTableLabel.ROOM_STATUS_ID.getLabel())))
+                .buildHotel(buildHotel(resultSet))
+                .build();
     }
 
     private Hotel buildHotel(ResultSet resultSet) throws SQLException {
-        HotelBuilder builder = new HotelBuilder();
-        builder.buildHotelId(resultSet.getInt(SQLTableLabel.HOTEL_ID.getLabel()));
-        builder.buildName(resultSet.getString(SQLTableLabel.HOTEL_NAME.getLabel()));
-        builder.buildStars(resultSet.getInt(SQLTableLabel.HOTEL_STARS.getLabel()));
-        builder.buildAddress(buildAddress(resultSet));
-        return builder.build();
+        return new HotelBuilder()
+                .buildHotelId(resultSet.getInt(SQLTableLabel.HOTEL_ID.getLabel()))
+                .buildName(resultSet.getString(SQLTableLabel.HOTEL_NAME.getLabel()))
+                .buildStars(resultSet.getInt(SQLTableLabel.HOTEL_STARS.getLabel()))
+                .buildAddress(buildAddress(resultSet))
+                .build();
     }
 
     private Address buildAddress(ResultSet resultSet) throws SQLException {
-        AddressBuilder builder = new AddressBuilder();
-        builder.buildAddressId(resultSet.getInt(SQLTableLabel.ADDRESS_ID.getLabel()));
-        builder.buildCountry(resultSet.getString(SQLTableLabel.ADDRESS_COUNTRY.getLabel()));
-        builder.buildTown(resultSet.getString(SQLTableLabel.ADDRESS_TOWN.getLabel()));
-        return builder.build();
+        return new AddressBuilder()
+                .buildAddressId(resultSet.getInt(SQLTableLabel.ADDRESS_ID.getLabel()))
+                .buildCountry(resultSet.getString(SQLTableLabel.ADDRESS_COUNTRY.getLabel()))
+                .buildTown(resultSet.getString(SQLTableLabel.ADDRESS_TOWN.getLabel()))
+                .build();
     }
 
     private void setRoomDataFields(PreparedStatement statement, Room entity) throws SQLException {

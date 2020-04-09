@@ -7,6 +7,18 @@ public class Response {
     private Request request;
     private Room room;
 
+    public Response(int id, Request request, Room room) {
+        this.id = id;
+        this.request = request;
+        this.room = room;
+    }
+
+    public Response(Response response) {
+        this.id = response.id;
+        this.request = new Request(response.request);
+        this.room = new Room(response.room);
+    }
+
     public int getId() {
         return id;
     }

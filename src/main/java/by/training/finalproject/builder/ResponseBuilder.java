@@ -4,20 +4,28 @@ import by.training.finalproject.entity.Request;
 import by.training.finalproject.entity.Response;
 import by.training.finalproject.entity.Room;
 
-public class ResponseBuilder extends AbstractBuilder<Response> {
-    public ResponseBuilder() {
-        businessEntity = new Response();
+public class ResponseBuilder {
+
+    private int id;
+    private Request request;
+    private Room room;
+
+    public ResponseBuilder buildId(int id) {
+        this.id = id;
+        return this;
     }
 
-    public void buildId(int id) {
-        businessEntity.setId(id);
+    public ResponseBuilder buildRequest(Request request) {
+        this.request = new Request(request);
+        return this;
     }
 
-    public void buildRequest(Request request) {
-        businessEntity.setRequest(request);
+    public ResponseBuilder buildRoom(Room room) {
+        this.room = new Room(room);
+        return this;
     }
 
-    public void buildRoom(Room room) {
-        businessEntity.setRoom(room);
+    public Response build() {
+        return new Response(id, request, room);
     }
 }
