@@ -7,7 +7,6 @@ import by.training.finalproject.dao.SQLTableLabel;
 import by.training.finalproject.entity.User;
 import by.training.finalproject.entity.UserRole;
 import by.training.finalproject.exception.DAOException;
-import by.training.finalproject.pool.ConnectionPool;
 import org.apache.log4j.Logger;
 
 import java.sql.Connection;
@@ -18,7 +17,14 @@ import java.sql.SQLException;
 public class UserDAOImpl extends AbstractCommonDAO<User> {
 
     private static final Logger LOGGER = Logger.getLogger(UserDAOImpl.class);
-    private static final ConnectionPool POOL = ConnectionPool.INSTANCE;
+    private static final UserDAOImpl DAO;
+    static {
+        DAO = new UserDAOImpl();
+    }
+
+    public static UserDAOImpl getInstance() {
+        return DAO;
+    }
 
     private UserDAOImpl() {
     }
