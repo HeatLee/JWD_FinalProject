@@ -8,9 +8,9 @@ import by.training.finalproject.validator.Validator;
 public class UserValidator implements Validator<User> {
 
     private static final String LOGIN_REGEX = "^[a-zA-Z0-9_]{5,16}$";
-    private static final String PASSWORD_REGEX = "^[a-zA-Z0-9]{8,32}$";
+    private static final String PASSWORD_REGEX = "^[a-zA-Z0-9]{5,32}$";
     private static final String EMAIL_REGEX =
-            "^[\\\\w!#$%&’*+/=?`{|}~^-]+(?:\\\\.[\\\\w!#$%&’*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\\\.)+[a-zA-Z]{2,6}$";
+            "^[A-Za-z0-9+_]+@(.+)$";
 
     @Override
     public void validate(User user) throws ValidatorException{
@@ -22,19 +22,19 @@ public class UserValidator implements Validator<User> {
     }
 
     private void isValidLogin(String login) throws ValidatorException {
-        if (!login.matches(LOGIN_REGEX)) {
+        if (!login.matches(LOGIN_REGEX) || login.isEmpty()) {
             throw new ValidatorException("Invalid login format");
         }
     }
 
     private void isValidPassword(String password) throws ValidatorException {
-        if (!password.matches(PASSWORD_REGEX)) {
+        if (!password.matches(PASSWORD_REGEX) || password.isEmpty()) {
             throw new ValidatorException("Invalid password format");
         }
     }
 
     private void isValidEmail(String email) throws ValidatorException {
-        if (!email.matches(EMAIL_REGEX)) {
+        if (!email.matches(EMAIL_REGEX) || email.isEmpty()) {
             throw new ValidatorException("Invalid email format");
         }
     }
