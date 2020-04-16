@@ -9,10 +9,7 @@ import by.training.finalproject.entity.UserRole;
 import by.training.finalproject.exception.DAOException;
 import org.apache.log4j.Logger;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class UserDAOImpl extends AbstractCommonDAO<User> {
 
@@ -32,6 +29,7 @@ public class UserDAOImpl extends AbstractCommonDAO<User> {
     public User readByLogin(String login) throws DAOException {
         try (Connection connection = POOL.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(SQLStatement.GET_USER_BY_LOGIN.getQuery());
+            statement.setString(1, login);
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
                     return buildEntity(resultSet);
@@ -47,6 +45,7 @@ public class UserDAOImpl extends AbstractCommonDAO<User> {
     public User readByEmail(String email) throws DAOException {
         try (Connection connection = POOL.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(SQLStatement.GET_USER_BY_EMAIL.getQuery());
+            statement.setString(1, email);
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
                     return buildEntity(resultSet);
