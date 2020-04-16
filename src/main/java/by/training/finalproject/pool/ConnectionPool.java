@@ -31,10 +31,9 @@ public enum ConnectionPool {
     ConnectionPool() {
         freeConnections = new LinkedBlockingDeque<>(DEFAULT_POOL_SIZE);
         usedConnections = new ArrayDeque<>();
-        initConnectionPool();
     }
 
-    private void initConnectionPool() {
+    public void initConnectionPool() {
         if (!isPoolInitiated.get()) {
             Properties properties = new Properties();
             InputStream inputStream = getClass().getClassLoader().getResourceAsStream(DATABASE_PROPERTIES_FILENAME);
