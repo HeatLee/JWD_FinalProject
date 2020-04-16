@@ -13,10 +13,10 @@ public enum SQLStatement {
             "WHERE user_id = ?"),
     GET_USER_LIST("SELECT user_id, login, password, email, user_role_id " +
             "FROM reservation_user"),
-    GET_USER_BY_LOGIN("SELECT user_id, login, password, email, user_role_id " +
+    GET_USER_BY_EMAIL("SELECT user_id, login, password, email, user_role_id " +
             "FROM reservation_user " +
             "WHERE email = ?"),
-    GET_USER_BY_EMAIL("SELECT user_id, login, password, email, user_role_id " +
+    GET_USER_BY_LOGIN("SELECT user_id, login, password, email, user_role_id " +
             "FROM reservation_user " +
             "WHERE login = ?"),
     ADD_ROOM("INSERT INTO hotel_room (room_capacity, hotel_id, room_price, room_status_id)" +
