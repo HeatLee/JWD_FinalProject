@@ -1,3 +1,7 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page contentType="text/html; charset=UTF-8" language="java"
+         pageEncoding="UTF-8" %>
+<%@ page isELIgnored="false" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -35,7 +39,6 @@
                 aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="oi oi-menu"></span> Menu
         </button>
-
         <div class="collapse navbar-collapse" id="ftco-nav">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item active"><a href="index.jsp" class="nav-link">Home</a></li>
@@ -44,7 +47,18 @@
                 <li class="nav-item"><a href="blog.html" class="nav-link">Blog</a></li>
                 <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
                 <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
-                <li class="nav-item cta"><a href="controller?command=SIGN_UP_PAGE" class="nav-link"><span>Sign Up</span></a></li>
+                <c:if test="${user == null}">
+                    <li class="nav-item cta"><a href="controller?command=SIGN_UP_PAGE"
+                                                class="nav-link"><span>Sign Up</span></a></li>
+                    <li class="nav-item cta"><a href="controller?command=SIGN_IN_PAGE"
+                                                class="nav-link"><span>Sign In</span></a></li>
+                </c:if>
+                <c:if test="${user != null}">
+                    <li class="navbar-text">${user.login}</li>
+                    <li class="nav-item cta"><a href="controller?command=SIGN_OUT"
+                                                class="nav-link"><span>Sign Out</span></a></li>
+                </c:if>
+
             </ul>
         </div>
     </div>

@@ -31,8 +31,7 @@ public class SingUpCommand implements Command {
                     .build();
             user = SERVICE.signUp(user);
             HttpSession session = request.getSession();
-            session.setAttribute(Attribute.USER_LOGIN.getAttribute(), user.getLogin());
-            session.setAttribute(Attribute.USER_ROLE.getAttribute(), user.getUserRole().toString());
+            session.setAttribute(Attribute.USER.getAttribute(), user);
             return Page.INDEX.getValue();
         } catch (ServiceException e) {
             LOGGER.info(e);
