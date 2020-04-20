@@ -324,7 +324,7 @@ figure {
 
 .form-submit {
     display: inline-block;
-    background: #6dabe4;
+    background: #f1b0b7;
     color: #fff;
     border-bottom: none;
     width: auto;
@@ -386,6 +386,7 @@ input {
     padding: 6px 30px;
     font-family: Poppins;
     box-sizing: border-box;
+    color: #f1b0b7;
 }
 
 input::-webkit-input-placeholder {
@@ -621,9 +622,7 @@ label.valid:after {
 }
 
 .signin-image {
-    margin-left: 110px;
-    margin-right: 20px;
-    margin-top: 10px;
+    margin: fill fill 0px;
 }
 
 @media screen and (max-width: 1200px) {
@@ -686,6 +685,7 @@ label.valid:after {
 
     .form-button {
         text-align: center;
+        color: #f1b0b7;
     }
 
     .signin-form {

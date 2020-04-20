@@ -54,6 +54,14 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public User signIn(User user) throws ServiceException {
-       return null;
+       try{
+           if ((user = FACTORY.readByLogin(user.getLogin())) == null) {
+               throw new ServiceException("User with such login does not exist");
+           }
+           return user;
+       } catch (DAOException e) {
+           LOGGER.warn(e);
+           throw new ServiceException("Server error. Sorry for that :(");
+       }
     }
 }
