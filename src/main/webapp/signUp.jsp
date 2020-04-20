@@ -1,6 +1,7 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page contentType="text/html; charset=UTF-8" language="java"
          pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page isELIgnored="false" %>
 <html>
 <head>
     <meta charset="UTF-8">
@@ -21,6 +22,18 @@
     <section class="signup">
         <div class="container">
             <div class="signup-content">
+                <div class="signin-image">
+                    <div class="row">
+                        <a href="controller?command=INDEX_PAGE"><img
+                                src="https://i.ibb.co/HCFjQgt/logo.jpg"
+                                alt="Home"/></a>
+                    </div>
+                    <div class="row">
+                        <a href="controller?command=SIGN_IN_PAGE"><img
+                                src="https://i.ibb.co/Qjt3ths/sing-In-Logo.jpg"
+                                alt="Sing In"/></a>
+                    </div>
+                </div>
                 <div class="signup-form">
                     <h2 class="form-title">Sign up</h2>
                     <form method="GET" class="register-form" id="register-form" action="controller">
