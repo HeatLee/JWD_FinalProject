@@ -4,19 +4,16 @@ import by.training.finalproject.exception.DAOException;
 import by.training.finalproject.pool.ConnectionPool;
 import org.apache.log4j.Logger;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class AbstractCommonDAO<T> implements CommonDAO<T>{
+public abstract class AbstractCommonDAO<T>{
 
     protected final static ConnectionPool POOL = ConnectionPool.INSTANCE;
     private final static Logger LOGGER = Logger.getLogger(AbstractCommonDAO.class);
 
-    @Override
+
     public void add(T t) throws DAOException {
         try (Connection connection = POOL.getConnection()) {
             PreparedStatement statement = buildAddPreparedStatement(connection, t);
@@ -27,7 +24,7 @@ public abstract class AbstractCommonDAO<T> implements CommonDAO<T>{
         }
     }
 
-    @Override
+
     public void update(T t) throws DAOException {
         try (Connection connection = POOL.getConnection()) {
             PreparedStatement statement = buildUpdatePreparedStatement(connection, t);
@@ -38,7 +35,6 @@ public abstract class AbstractCommonDAO<T> implements CommonDAO<T>{
         }
     }
 
-    @Override
     public void delete(T t) throws DAOException {
         try(Connection connection = POOL.getConnection()) {
             PreparedStatement statement = buildDeletePreparedStatement(connection, t);
@@ -49,7 +45,7 @@ public abstract class AbstractCommonDAO<T> implements CommonDAO<T>{
         }
     }
 
-    @Override
+
     public T readById(int id) throws DAOException {
         try (Connection connection = POOL.getConnection()) {
             PreparedStatement statement = buildReadByIdPreparedStatement(connection, id);
@@ -65,7 +61,7 @@ public abstract class AbstractCommonDAO<T> implements CommonDAO<T>{
         }
     }
 
-    @Override
+
     public List<T> readAll() throws DAOException {
         try (Connection connection = POOL.getConnection()) {
             PreparedStatement statement = buildReadAllPreparedStatement(connection);

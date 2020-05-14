@@ -6,5 +6,9 @@ import by.training.finalproject.exception.ServiceException;
 public interface UserService {
     User signIn(User user) throws ServiceException;
 
-    User signUp(User user) throws ServiceException;
+    void signUp(User user) throws ServiceException;
+
+    void editUser(User user) throws ServiceException;
+
+    String getPasswordByLogin(String login) throws ServiceException;
 }

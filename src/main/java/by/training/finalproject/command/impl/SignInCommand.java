@@ -8,6 +8,7 @@ import by.training.finalproject.command.Page;
 import by.training.finalproject.entity.User;
 import by.training.finalproject.exception.ServiceException;
 import by.training.finalproject.factory.ServiceFactory;
+import by.training.finalproject.service.UserService;
 import by.training.finalproject.service.impl.UserServiceImpl;
 import org.apache.log4j.Logger;
 
@@ -17,7 +18,7 @@ import javax.servlet.http.HttpSession;
 
 public class SignInCommand implements Command {
     private static final Logger LOGGER = Logger.getLogger(SignInCommand.class);
-    private static final UserServiceImpl SERVICE = ServiceFactory.INSTANCE.geUserService();
+    private static final UserService SERVICE = ServiceFactory.INSTANCE.getUserService();
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
@@ -28,8 +29,6 @@ public class SignInCommand implements Command {
                     .build();
             user = SERVICE.signIn(user);
             HttpSession session = request.getSession();
-//            session.setAttribute(Attribute.USER_LOGIN.getAttribute(), user.getLogin());
-//            session.setAttribute(Attribute.USER_ROLE.getAttribute(), user.getUserRole().toString());
             session.setAttribute(Attribute.USER.getAttribute(), user);
             return Page.INDEX.getValue();
         } catch (ServiceException e) {
