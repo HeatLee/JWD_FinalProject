@@ -6,10 +6,10 @@
 <html lang="en">
 <head>
     <title>Profile</title>
-    <jsp:include page="include/header.jsp"/>
+    <jsp:include page="../include/header.jsp"/>
 </head>
 <body>
-<jsp:include page="include/nav.jsp"/>
+<jsp:include page="../include/nav.jsp"/>
 
 <div class="container">
     <c:if test="${err != null}">
@@ -130,24 +130,6 @@
         </div>
     </div>
 </div>
-
-<script type="javascript/text">
-    $(".nav li").on("click", function(){
-        var url = $(this).attr("url");
-        if (typeof url !== "undefined") {
-            var pane = $(this);
-            $.ajax({
-                url: url,
-                type: 'GET',
-                cache: false,
-            })
-        }
-    });
-
-
-
-
-</script>
 
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
         integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
