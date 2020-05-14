@@ -53,4 +53,14 @@ public class RequestServiceImpl implements RequestService {
             throw new ServiceException(e.getMessage());
         }
     }
+
+    @Override
+    public List<Request> readAllRequests() throws ServiceException {
+        try {
+            return DAOFactory.INSTANCE.getRequestDAO().readAll();
+        } catch (DAOException e) {
+            LOGGER.warn(e);
+            throw new ServiceException("Server error. Sorry for that :(");
+        }
+    }
 }

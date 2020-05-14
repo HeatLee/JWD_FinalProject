@@ -9,4 +9,7 @@ public interface RequestService {
     Request addRequest(Request request) throws ServiceException;
 
     List<Request> readUserRequest(int userId) throws ServiceException;
+
+    List<Request> readAllRequests() throws ServiceException;
+
 }

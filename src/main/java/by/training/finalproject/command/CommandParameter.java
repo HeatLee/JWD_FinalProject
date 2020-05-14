@@ -16,6 +16,7 @@ public enum CommandParameter {
     SIGN_IN_PAGE(new SignInRedirectCommand()),
     PROFILE_PAGE(new ProfileRedirectCommand()),
     SEND_REQUEST(new AddNewRequestCommand());
+    ADMIN_PAGE(new AdminPageRedirectCommand());
 
     private Command command;
 
