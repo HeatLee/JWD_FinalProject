@@ -4,6 +4,7 @@ import by.training.finalproject.builder.AddressBuilder;
 import by.training.finalproject.builder.HotelBuilder;
 import by.training.finalproject.builder.RoomBuilder;
 import by.training.finalproject.dao.AbstractCommonDAO;
+import by.training.finalproject.dao.RoomDAO;
 import by.training.finalproject.dao.SQLStatement;
 import by.training.finalproject.dao.SQLTableLabel;
 import by.training.finalproject.entity.Address;
@@ -20,22 +21,23 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RoomDAOImpl extends AbstractCommonDAO<Room> {
+public class RoomDAOImpl extends AbstractCommonDAO<Room> implements RoomDAO<Room> {
 
     private static final Logger LOGGER = Logger.getLogger(RoomDAOImpl.class);
 
-    private static final RoomDAOImpl DAO;
+    private static final RoomDAO<Room> DAO;
     static {
         DAO = new RoomDAOImpl();
     }
 
-    public static RoomDAOImpl getInstance() {
+    public static RoomDAO<Room> getInstance() {
         return DAO;
     }
 
     private RoomDAOImpl() {
     }
 
+    @Override
     public List<Room> readByRoomStatus(RoomStatus roomStatus) throws DAOException {
         try (Connection connection = POOL.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(SQLStatement.GET_ROOM_LIST_BY_STATUS.getQuery());
@@ -47,7 +49,7 @@ public class RoomDAOImpl extends AbstractCommonDAO<Room> {
         }
     }
 
-
+    @Override
     public List<Room> readByCapacity(int capacity) throws DAOException {
         try (Connection connection = POOL.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(SQLStatement.GET_ROOM_LIST_BY_CAPACITY.getQuery());

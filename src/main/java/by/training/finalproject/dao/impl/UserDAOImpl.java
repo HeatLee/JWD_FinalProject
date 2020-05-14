@@ -4,28 +4,34 @@ import by.training.finalproject.builder.UserBuilder;
 import by.training.finalproject.dao.AbstractCommonDAO;
 import by.training.finalproject.dao.SQLStatement;
 import by.training.finalproject.dao.SQLTableLabel;
+import by.training.finalproject.dao.UserDAO;
 import by.training.finalproject.entity.User;
 import by.training.finalproject.entity.UserRole;
 import by.training.finalproject.exception.DAOException;
 import org.apache.log4j.Logger;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
-public class UserDAOImpl extends AbstractCommonDAO<User> {
+public class UserDAOImpl extends AbstractCommonDAO<User> implements UserDAO<User> {
 
     private static final Logger LOGGER = Logger.getLogger(UserDAOImpl.class);
-    private static final UserDAOImpl DAO;
+    private static final UserDAO<User> DAO;
+
     static {
         DAO = new UserDAOImpl();
-    }
-
-    public static UserDAOImpl getInstance() {
-        return DAO;
     }
 
     private UserDAOImpl() {
     }
 
+    public static UserDAO<User> getInstance() {
+        return DAO;
+    }
+
+    @Override
     public User readByLogin(String login) throws DAOException {
         try (Connection connection = POOL.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(SQLStatement.GET_USER_BY_LOGIN.getQuery());
@@ -42,6 +48,7 @@ public class UserDAOImpl extends AbstractCommonDAO<User> {
         }
     }
 
+    @Override
     public User readByEmail(String email) throws DAOException {
         try (Connection connection = POOL.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(SQLStatement.GET_USER_BY_EMAIL.getQuery());
@@ -49,6 +56,23 @@ public class UserDAOImpl extends AbstractCommonDAO<User> {
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
                     return buildEntity(resultSet);
+                }
+                return null;
+            }
+        } catch (SQLException e) {
+            LOGGER.warn(e);
+            throw new DAOException(e);
+        }
+    }
+
+    @Override
+    public String readPasswordByLogin(String login) throws DAOException {
+        try (Connection connection = POOL.getConnection()) {
+            PreparedStatement statement = connection.prepareStatement(SQLStatement.GET_PASSWORD_BY_LOGIN.getQuery());
+            statement.setString(1, login);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    return resultSet.getString(SQLTableLabel.USER_PASSWORD.getLabel());
                 }
                 return null;
             }

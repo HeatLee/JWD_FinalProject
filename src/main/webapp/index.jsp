@@ -5,92 +5,92 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <jsp:include page="include/header.jsp"/>
     <title>Bookin</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <link href="https://fonts.googleapis.com/css?family=Rubik:300,400,500,700,900" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Playfair+Display:400,400i,700,700i,900,900i" rel="stylesheet">
-
-    <link rel="stylesheet" href="css/open-iconic-bootstrap.min.css">
-    <link rel="stylesheet" href="css/animate.css">
-
-    <link rel="stylesheet" href="css/owl.carousel.min.css">
-    <link rel="stylesheet" href="css/owl.theme.default.min.css">
-    <link rel="stylesheet" href="css/magnific-popup.css">
-
-    <link rel="stylesheet" href="css/aos.css">
-
-    <link rel="stylesheet" href="css/ionicons.min.css">
-
-    <link rel="stylesheet" href="css/bootstrap-datepicker.css">
-    <link rel="stylesheet" href="css/jquery.timepicker.css">
-
-
-    <link rel="stylesheet" href="css/flaticon.css">
-    <link rel="stylesheet" href="css/icomoon.css">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/starRating.css">
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
-    <div class="container">
-        <a class="navbar-brand" href="controller?command=INDEX_PAGE">Bookin</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav"
-                aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="oi oi-menu"></span> Menu
+<jsp:include page="include/nav.jsp"/>
+<c:if test="${err != null}">
+    <div class="row my-2 alert alert-warning alert-dismissible fade show" role="alert">
+        <strong>${err}</strong>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
         </button>
-        <div class="collapse navbar-collapse" id="ftco-nav">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item active"><a href="index.jsp" class="nav-link">Home</a></li>
-                <li class="nav-item"><a href="properties.html" class="nav-link">Properties</a></li>
-                <li class="nav-item"><a href="agents.html" class="nav-link">Agents</a></li>
-                <li class="nav-item"><a href="blog.html" class="nav-link">Blog</a></li>
-                <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
-                <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
-                <c:if test="${user == null}">
-                    <li class="nav-item cta"><a href="controller?command=SIGN_UP_PAGE"
-                                                class="nav-link"><span>Sign Up</span></a></li>
-                    <li class="nav-item cta"><a href="controller?command=SIGN_IN_PAGE"
-                                                class="nav-link"><span>Sign In</span></a></li>
-                </c:if>
-                <c:if test="${user != null}">
-                    <li class="navbar-text">${user.login}</li>
-                    <li class="nav-item cta"><a href="controller?command=SIGN_OUT"
-                                                class="nav-link"><span>Sign Out</span></a></li>
-                </c:if>
-
-            </ul>
+    </div>
+</c:if>
+<c:if test="${user.userRole.id == 3}">
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <form action="controller" method="post">
+                <div class="row" style="background-color: hsl(210, 10%, 23%); color: hsl(0, 0%, 100%);">
+                    <div class="form-group col">
+                        <label for="checkIn">Check In</label>
+                        <div class="form-field">
+                            <input id="checkIn" type="date" class="form-control" name="checkIn">
+                        </div>
+                    </div>
+                    <div class="form-group col">
+                        <label for="departure">Departure</label>
+                        <div class="form-field">
+                            <input id="departure" type="date" class="form-control" name="departure">
+                        </div>
+                    </div>
+                    <div class="form-group col">
+                        <div class="form-field">
+                            <label for="country">Country</label>
+                            <input id="country" type="text" class="form-control" name="country">
+                        </div>
+                    </div>
+                    <div class="form-group col">
+                        <label for="town">Town</label>
+                        <div class="form-field">
+                            <input id="town" type="text" class="form-control" name="town">
+                        </div>
+                    </div>
+                    <div class="form-group col">
+                        <label for="capacity">Capacity</label>
+                        <div class="form-field">
+                            <input id="capacity" type="number" class="form-control" name="capacity">
+                        </div>
+                    </div>
+                    <div class="rating-box">
+                        <div class="ratings">
+                            <span class="fa fa-star-o"></span>
+                            <span class="fa fa-star-o"></span>
+                            <span class="fa fa-star-o"></span>
+                            <span class="fa fa-star-o"></span>
+                            <span class="fa fa-star-o"></span>
+                        </div>
+                        <input type="hidden" id="rating-value" name="stars">
+                    </div>
+                    <div class="col-lg align-self-end">
+                        <div class="form-group">
+                            <div class="form-field">
+                                <button type="submit" class="btn btn-primary" name="command"
+                                        value="SEND_REQUEST">
+                                    Send Request
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
-</nav>
-<!-- END nav -->
-
-
-<!-- loader -->
-<div id="ftco-loader" class="show fullscreen">
-    <svg class="circular" width="48px" height="48px">
-        <circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"></circle>
-        <circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10"
-                stroke="#F96D00"></circle>
-    </svg>
 </div>
-
-
-<script src="js/jquery.min.js"></script>
-<script src="js/jquery-migrate-3.0.1.min.js"></script>
-<script src="js/popper.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script src="js/jquery.easing.1.3.js"></script>
-<script src="js/jquery.waypoints.min.js"></script>
-<script src="js/jquery.stellar.min.js"></script>
-<script src="js/owl.carousel.min.js"></script>
-<script src="js/jquery.magnific-popup.min.js"></script>
-<script src="js/aos.js"></script>
-<script src="js/jquery.animateNumber.min.js"></script>
-<script src="js/scrollax.min.js"></script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
-<script src="js/google-map.js"></script>
-<script src="js/main.js"></script>
-
+</c:if>
+<script src="js/starRating.js"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
 </body>
 </html>

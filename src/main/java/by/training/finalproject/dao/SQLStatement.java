@@ -19,6 +19,9 @@ public enum SQLStatement {
     GET_USER_BY_LOGIN("SELECT user_id, login, password, email, user_role_id " +
             "FROM reservation_user " +
             "WHERE login = ?"),
+    GET_PASSWORD_BY_LOGIN("SELECT password\n" +
+            "from bd_jwd_reservation.reservation_user\n" +
+            "WHERE login = ?"),
     ADD_ROOM("INSERT INTO hotel_room (room_capacity, hotel_id, room_price, room_status_id)" +
             " VALUES (?, ?, ?, ?)"),
     UPDATE_ROOM_BY_ID("UPDATE hotel_room t " +
@@ -89,7 +92,102 @@ public enum SQLStatement {
             "WHERE hotel_room.hotel_id = hotel.hotel_id\n" +
             "  AND hotel.address_id = address.address_id\n" +
             "  AND hotel_room.room_capacity = ?"),
-    ;
+    ADD_REQUEST("INSERT INTO" +
+            " bd_jwd_reservation.request" +
+            " (capacity, check_in, departure, stars, reservation_user_id, address_id, status_id)" +
+            " VALUES (?, ?, ?, ?, ?, ?, ?)"),
+    UPDATE_REQUEST("UPDATE bd_jwd_reservation.request t " +
+            "SET" +
+            " t.status_id = ?" +
+            " t.capacity = ?" +
+            " t.check_in = ?" +
+            " t.departure = ?" +
+            " t.stars = ?" +
+            " t.reservation_user_id = ?" +
+            " t.address_id = ?" +
+            "WHERE t.request_id = ?"),
+    DELETE_REQUEST("DELETE FROM bd_jwd_reservation.request t " +
+            "WHERE t.request_id = ?"),
+    GET_REQUEST_BY_ID("SELECT request.request_id,\n" +
+            "       request.capacity,\n" +
+            "       request.check_in,\n" +
+            "       request.departure,\n" +
+            "       request.stars,\n" +
+            "       request.status_id,\n" +
+            "       reservation_user.user_id,\n" +
+            "       reservation_user.email,\n" +
+            "       reservation_user.password,\n" +
+            "       reservation_user.login,\n" +
+            "       reservation_user.user_role_id,\n" +
+            "       address.address_id,\n" +
+            "       address.town,\n" +
+            "       address.country\n" +
+            "FROM request,\n" +
+            "     address,\n" +
+            "     reservation_user\n" +
+            "WHERE request.address_id = address.address_id\n" +
+            "  AND request.reservation_user_id = reservation_user.user_id\n" +
+            "  AND request.request_id = ?"),
+    GET_REQUEST_BY_USER_ID("SELECT request.request_id,\n" +
+            "       request.capacity,\n" +
+            "       request.check_in,\n" +
+            "       request.departure,\n" +
+            "       request.stars,\n" +
+            "       request.status_id,\n" +
+            "       reservation_user.user_id,\n" +
+            "       reservation_user.email,\n" +
+            "       reservation_user.password,\n" +
+            "       reservation_user.login,\n" +
+            "       reservation_user.user_role_id,\n" +
+            "       address.address_id,\n" +
+            "       address.town,\n" +
+            "       address.country\n" +
+            "FROM request,\n" +
+            "     address,\n" +
+            "     reservation_user\n" +
+            "WHERE request.address_id = address.address_id\n" +
+            "  AND request.reservation_user_id = reservation_user.user_id\n" +
+            "  AND request.reservation_user_id = ?"),
+    GET_REQUEST_LIST("SELECT request.request_id,\n" +
+            "       request.capacity,\n" +
+            "       request.check_in,\n" +
+            "       request.departure,\n" +
+            "       request.stars,\n" +
+            "       request.status_id,\n" +
+            "       reservation_user.user_id,\n" +
+            "       reservation_user.email,\n" +
+            "       reservation_user.password,\n" +
+            "       reservation_user.login,\n" +
+            "       reservation_user.user_role_id,\n" +
+            "       address.address_id,\n" +
+            "       address.town,\n" +
+            "       address.country\n" +
+            "FROM request,\n" +
+            "     address,\n" +
+            "     reservation_user\n" +
+            "WHERE request.address_id = address.address_id\n" +
+            "  AND request.reservation_user_id = reservation_user.user_id"),
+    ADD_ADDRESS("INSERT INTO bd_jwd_reservation.address (country, town) " +
+            "VALUES (?, ?)"),
+    UPDATE_ADDRESS("UPDATE bd_jwd_reservation.address t " +
+            "SET t.country = ?, t.town = ? " +
+            "WHERE t.address_id = ?"),
+    DELETE_ADDRESS("DELETE FROM bd_jwd_reservation.address " +
+            "WHERE address_id = ?"),
+    GET_ADDRESS_BY_ID("SELECT country,\n" +
+            "       town,\n" +
+            "       address_id\n" +
+            "FROM bd_jwd_reservation.address\n" +
+            "WHERE address_id = ?"),
+    GET_ADDRESS_LIST("SELECT country,\n" +
+            "       town,\n" +
+            "       address_id\n" +
+            "FROM bd_jwd_reservation.address"),
+    GET_ADDRESS_BY_DATA("SELECT country,\n" +
+            "       town,\n" +
+            "       address_id\n" +
+            "FROM address\n" +
+            "WHERE country = ? AND town = ?");
 
     private String query;
 

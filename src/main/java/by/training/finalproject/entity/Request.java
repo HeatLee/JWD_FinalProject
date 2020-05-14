@@ -1,18 +1,19 @@
 package by.training.finalproject.entity;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.Objects;
 
 public class Request {
     private int id;
     private int capacity;
-    private Date checkIn;
-    private Date departure;
+    private LocalDate checkIn;
+    private LocalDate departure;
     private int stars;
     private Address address;
     private User reservationUser;
+    private RequestStatus status;
 
-    public Request(int id, int capacity, Date checkIn, Date departure, int stars, Address address, User reservationUser) {
+    public Request(int id, int capacity, LocalDate checkIn, LocalDate departure, int stars, Address address, User reservationUser, RequestStatus status) {
         this.id = id;
         this.capacity = capacity;
         this.checkIn = checkIn;
@@ -20,16 +21,28 @@ public class Request {
         this.stars = stars;
         this.address = address;
         this.reservationUser = reservationUser;
+        this.status = status;
     }
 
     public Request(Request request) {
         this.id = request.id;
         this.capacity = request.capacity;
-        this.checkIn = (Date) request.checkIn.clone();
-        this.departure = (Date) request.departure.clone();
+        this.checkIn = LocalDate.of(request.checkIn.getYear(),
+                request.checkIn.getMonth(), request.checkIn.getDayOfMonth());
+        this.departure = LocalDate.of(request.departure.getYear(),
+                request.departure.getMonth(), request.departure.getDayOfMonth());
         this.stars = request.stars;
         this.address = new Address(request.address);
         this.reservationUser = new User(request.reservationUser);
+        this.status = RequestStatus.getStatusById(request.getStatus().getId());
+    }
+
+    public RequestStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(RequestStatus status) {
+        this.status = status;
     }
 
     public User getReservationUser() {
@@ -56,20 +69,20 @@ public class Request {
         this.capacity = capacity;
     }
 
-    public Date getCheckIn() {
+    public LocalDate getCheckIn() {
         return checkIn;
     }
 
-    public void setCheckIn(Date checkIn) {
-        this.checkIn = checkIn;
+    public void setCheckIn(LocalDate checkIn) {
+        this.checkIn = LocalDate.of(checkIn.getYear(), checkIn.getMonth(), checkIn.getDayOfMonth());
     }
 
-    public Date getDeparture() {
+    public LocalDate getDeparture() {
         return departure;
     }
 
-    public void setDeparture(Date departure) {
-        this.departure = departure;
+    public void setDeparture(LocalDate departure) {
+        this.departure = LocalDate.of(departure.getYear(), departure.getMonth(), departure.getDayOfMonth());
     }
 
     public int getStars() {

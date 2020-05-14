@@ -1,0 +1,15 @@
+.rating-box{
+    background-color: #ddd;
+    max-width: 600px;
+    margin:40px auto;
+    padding: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.rating-box .ratings .fa{
+    font-size: 40px;
+    color:#FF9800;
+    float: left;
+    cursor: pointer;
+}

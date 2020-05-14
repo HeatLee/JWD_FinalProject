@@ -21,31 +21,31 @@ public class UserValidator implements Validator<User> {
         isValidUserRole(user.getUserRole());
     }
 
-    private void isValidLogin(String login) throws ValidatorException {
+    public void isValidLogin(String login) throws ValidatorException {
         if (!login.matches(LOGIN_REGEX) || login.isEmpty()) {
             throw new ValidatorException("Invalid login format");
         }
     }
 
-    private void isValidPassword(String password) throws ValidatorException {
+    public void isValidPassword(String password) throws ValidatorException {
         if (!password.matches(PASSWORD_REGEX) || password.isEmpty()) {
             throw new ValidatorException("Invalid password format");
         }
     }
 
-    private void isValidEmail(String email) throws ValidatorException {
+    public void isValidEmail(String email) throws ValidatorException {
         if (!email.matches(EMAIL_REGEX) || email.isEmpty()) {
             throw new ValidatorException("Invalid email format");
         }
     }
 
-    private void  isValidUserId(int id) throws ValidatorException {
+    public void  isValidUserId(int id) throws ValidatorException {
         if (!(id >= 0)) {
             throw new ValidatorException("Invalid id value");
         }
     }
 
-    private void isValidUserRole(UserRole userRole) throws ValidatorException {
+    public void isValidUserRole(UserRole userRole) throws ValidatorException {
         if (UserRole.UNSUPPORTED_INDEX.equals(userRole)) {
             throw new ValidatorException("Invalid user role");
         }

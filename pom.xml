@@ -27,9 +27,17 @@
     <javax.servlet.version>4.0.1</javax.servlet.version>
     <jstl.version>1.2</jstl.version>
     <mysql.version>8.0.11</mysql.version>
+    <apach.commons.version>3.10</apach.commons.version>
   </properties>
 
   <dependencies>
+    <!-- Apach Commons -->
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-lang3</artifactId>
+      <version>${apach.commons.version}</version>
+    </dependency>
+
     <!-- JUnit -->
     <dependency>
       <groupId>junit</groupId>
