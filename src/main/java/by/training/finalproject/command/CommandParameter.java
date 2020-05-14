@@ -13,7 +13,7 @@ public enum CommandParameter {
     CHANGE_USER(new ChangeUserInfoCommand()),
     INDEX_PAGE(new IndexRedirectCommand()),
     SIGN_UP_PAGE(new SingUpRedirectCommand()),
-    SIGN_IN_PAGE(new SignInRedirectCommand());
+    SIGN_IN_PAGE(new SignInRedirectCommand()),
     PROFILE_PAGE(new ProfileRedirectCommand()),
     SEND_REQUEST(new AddNewRequestCommand());
 
