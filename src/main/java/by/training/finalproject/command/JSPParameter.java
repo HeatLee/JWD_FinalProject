@@ -7,6 +7,12 @@ public enum JSPParameter {
     PASSWORD("password"),
     PASSWORD_CONFIRMATION("passwordConf"),
     OLD_PASSWORD("oldPassword"),
+    TOWN("town"),
+    COUNTRY("country"),
+    CAPACITY("capacity"),
+    STARS("stars"),
+    CHECK_IN("checkIn"),
+    DEPARTURE("departure");
 
     private String value;
 
