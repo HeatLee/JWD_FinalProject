@@ -4,6 +4,7 @@ public enum Page {
     INDEX("index.jsp"),
     SIGN_UP("signUp.jsp"),
     SIGN_IN("signIn.jsp");
+    PROFILE("profile.jsp");
 
     private String value;
 
