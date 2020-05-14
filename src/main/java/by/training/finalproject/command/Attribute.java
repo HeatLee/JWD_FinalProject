@@ -2,7 +2,8 @@ package by.training.finalproject.command;
 
 public enum Attribute {
     USER("user"),
-    ERR_PARAMETER("err");
+    ERR_PARAMETER("err"),
+    REQUEST_LIST("requestList");
 
     private String attribute;
 

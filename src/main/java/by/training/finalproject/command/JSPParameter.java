@@ -4,7 +4,9 @@ public enum JSPParameter {
     COMMAND("command"),
     LOGIN("login"),
     EMAIL("email"),
-    PASSWORD("password");
+    PASSWORD("password"),
+    PASSWORD_CONFIRMATION("passwordConf"),
+    OLD_PASSWORD("oldPassword"),
 
     private String value;
 
