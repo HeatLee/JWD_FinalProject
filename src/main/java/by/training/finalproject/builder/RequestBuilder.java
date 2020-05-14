@@ -2,19 +2,27 @@ package by.training.finalproject.builder;
 
 import by.training.finalproject.entity.Address;
 import by.training.finalproject.entity.Request;
+import by.training.finalproject.entity.RequestStatus;
 import by.training.finalproject.entity.User;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class RequestBuilder {
 
     private int id;
     private int capacity;
-    private Date checkIn;
-    private Date departure;
+    private LocalDate checkIn;
+    private LocalDate departure;
     private int stars;
     private Address address;
     private User reservationUser;
+    private RequestStatus status;
+
+    public RequestBuilder buildStatus(int id) {
+        this.status = RequestStatus.getStatusById(id);
+        return this;
+    }
 
     public RequestBuilder buildRequestId(int id) {
         this.id = id;
@@ -26,13 +34,13 @@ public class RequestBuilder {
         return this;
     }
 
-    public RequestBuilder buildCheckInDate(Date date) {
-        this.checkIn = (Date) date.clone();
+    public RequestBuilder buildCheckInDate(LocalDate date) {
+        this.checkIn = LocalDate.of(date.getYear(), date.getMonth(), date.getDayOfMonth());
         return this;
     }
 
-    public RequestBuilder buildDepartureDate(Date date) {
-        this.departure = (Date)date.clone();
+    public RequestBuilder buildDepartureDate(LocalDate date) {
+        this.departure = LocalDate.of(date.getYear(), date.getMonth(), date.getDayOfMonth());
         return this;
     }
 
@@ -52,7 +60,7 @@ public class RequestBuilder {
     }
 
     public Request build() {
-        return new Request(id, capacity, checkIn, departure, stars, address, reservationUser);
+        return new Request(id, capacity, checkIn, departure, stars, address, reservationUser, status);
     }
 
 }
