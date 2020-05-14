@@ -1,73 +1,96 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html; charset=UTF-8" language="java"
-         pageEncoding="UTF-8"%>
+         pageEncoding="UTF-8" %>
 <%@ page isELIgnored="false" %>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Sign Up</title>
-
-    <!-- Font Icon -->
-    <link rel="stylesheet" href="fonts/material-icon/css/material-design-iconic-font.min.css">
-
-
-    <!-- Main css -->
-    <link rel="stylesheet" href="css/reg/style.css">
+    <jsp:include page="include/header.jsp"/>
+    <style>
+        body, html {
+            height: 100%;
+        }
+    </style>
 </head>
 <body>
-<div class="main">
-    <!-- Sign up form -->
-    <section class="signup">
-        <div class="container">
-            <div class="signup-content">
-                <div class="signin-image">
-                    <div class="row">
-                        <a href="controller?command=INDEX_PAGE"><img
-                                src="https://i.ibb.co/HCFjQgt/logo.jpg"
-                                alt="Home"/></a>
-                    </div>
-                    <div class="row">
-                        <a href="controller?command=SIGN_IN_PAGE"><img
-                                src="https://i.ibb.co/Qjt3ths/sing-In-Logo.jpg"
-                                alt="Sing In"/></a>
-                    </div>
-                </div>
-                <div class="signup-form">
-                    <h2 class="form-title">Sign up</h2>
-                    <form method="GET" class="register-form" id="register-form" action="controller">
-                        <div class="form-group">
-                            <label for="login"><i class="zmdi zmdi-account material-icons-name"></i></label>
-                            <input type="text" name="login" id="login" placeholder="Your Name"/>
-                        </div>
-                        <div class="form-group">
-                            <label for="email"><i class="zmdi zmdi-email"></i></label>
-                            <input type="email" name="email" id="email" placeholder="Your Email"/>
-                        </div>
-                        <div class="form-group">
-                            <label for="password"><i class="zmdi zmdi-lock"></i></label>
-                            <input type="password" name="password" id="password" placeholder="Password"/>
-                        </div>
-                        <div class="form-group">
-                            <label for="re_pass"><i class="zmdi zmdi-lock-outline"></i></label>
-                            <input type="password" name="re_pass" id="re_pass" placeholder="Repeat your password"/>
-                        </div>
-                       <h6>${err}</h6>
-                        <div class="form-group form-button">
-                            <input
-                                    type="submit"
-                                    name="command" id="command"
-                                    class="form-submit" value="SIGN_UP"/>
-                        </div>
-                    </form>
-                </div>
-            </div>
+<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+    <div class="container">
+        <a class="navbar-brand" href="controller?command=INDEX_PAGE">Bookin</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav"
+                aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="oi oi-menu"></span> Menu
+        </button>
+        <div class="collapse navbar-collapse" id="ftco-nav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item active"><a href="index.jsp" class="nav-link">Home</a></li>
+                <li class="nav-item cta"><a href="controller?command=SIGN_IN_PAGE"
+                                            class="nav-link"><span>Sign In</span></a></li>
+            </ul>
         </div>
-    </section>
-
+    </div>
+</nav>
+<div class="bg-dark">
+    <div class="container-fluid">
+        <div class="d-flex align-items-center flex-column justify-content-center h-100  text-white">
+            <form class="needs-validation" action="controller" method="POST" novalidate>
+                <div>
+                    <label for="login">Login</label>
+                    <input type="text" class="form-control form-control-lg" id="login" name="login" required>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+                    <div class="invalid-feedback">
+                        Please enter a login.
+                    </div>
+                </div>
+                <div>
+                    <label for="email">Email</label>
+                    <input type="email" class="form-control form-control-lg" id="email" name="email" required>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+                    <div class="invalid-feedback">
+                        Please enter a email.
+                    </div>
+                </div>
+                <div>
+                    <label for="password">Password</label>
+                    <input type="password" class="form-control form-control-lg" id="password" name="password" required>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+                    <div class="invalid-feedback">
+                        Please enter a password.
+                    </div>
+                </div>
+                <p> ${err} </p>
+                <button class="btn btn-primary" type="submit" name="command" id="command" value="SIGN_UP">
+                    Register
+                </button>
+            </form>
+        </div>
+    </div>
 </div>
-<script src="vendor/jquery/jquery.min.js"></script>
-<script src="js/reg.js"></script>
+
+<script>
+    // Example starter JavaScript for disabling form submissions if there are invalid fields
+    (function () {
+        'use strict';
+        window.addEventListener('load', function () {
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            var forms = document.getElementsByClassName('needs-validation');
+            // Loop over them and prevent submission
+            var validation = Array.prototype.filter.call(forms, function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (form.checkValidity() === false) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+            });
+        }, false);
+    })();
+</script>
 </body>
 </html>
