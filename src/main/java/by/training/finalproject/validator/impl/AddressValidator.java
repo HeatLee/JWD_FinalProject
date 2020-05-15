@@ -1,12 +1,14 @@
 package by.training.finalproject.validator.impl;
 
+import by.training.finalproject.entity.Address;
 import by.training.finalproject.exception.ValidatorException;
 import by.training.finalproject.validator.Validator;
 
-public class AddressValidator implements Validator<AddressValidator> {
+public class AddressValidator implements Validator<Address> {
     @Override
-    public void validate(AddressValidator address) throws ValidatorException {
-
+    public void validate(Address address) throws ValidatorException {
+        isValidCountry(address.getCountry());
+        isValidTown(address.getTown());
     }
 
     private void isValidCountry(String country) throws ValidatorException {
