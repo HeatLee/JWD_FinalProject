@@ -21,6 +21,7 @@ public enum SQLTableLabel {
     REQUEST_CHECK_IN("check_in"),
     REQUEST_DEPARTURE("departure"),
     REQUEST_STARS("stars"),
+    REQUEST_STATUS_ID("status_id"),
     RESPONSE_ID("response_id");
 
     SQLTableLabel(String label) {
