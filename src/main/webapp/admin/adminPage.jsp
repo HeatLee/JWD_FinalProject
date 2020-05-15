@@ -41,6 +41,7 @@
                             <th scope="col">Town</th>
                             <th scope="col">User</th>
                             <th scope="col">Status</th>
+                            <th scope="col">Action</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -54,13 +55,18 @@
                                 <td>${item.address.country}</td>
                                 <td>${item.address.town}</td>
                                 <td>${item.reservationUser.login}</td>
-                                <td>${item.status}</td>
-                                <td>
-                                    <button type="submit" class="btn btn-primary" name="command"
-                                            value="CREATE_RESPONSE">
-                                        Response
-                                    </button>
-                                </td>
+                                <td>${item.status.text}</td>
+                                <c:if test="${item.status.id == 3}">
+                                    <td>
+                                        <form action="controller" method="post">
+                                            <input type="hidden" name="requestId" value="${item.id}"/>
+                                            <button type="submit" class="btn btn-primary" name="command"
+                                                    value="CREATE_RESPONSE_PAGE">
+                                                Response
+                                            </button>
+                                        </form>
+                                    </td>
+                                </c:if>
                             </tr>
                         </c:forEach>
                         </tbody>
@@ -80,6 +86,5 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
         integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
         crossorigin="anonymous"></script>
-</body>
 </body>
 </html>
