@@ -3,14 +3,12 @@ package by.training.finalproject.dao.impl;
 import by.training.finalproject.builder.AddressBuilder;
 import by.training.finalproject.builder.RequestBuilder;
 import by.training.finalproject.builder.UserBuilder;
+import by.training.finalproject.command.JSPParameter;
 import by.training.finalproject.dao.AbstractCommonDAO;
 import by.training.finalproject.dao.RequestDAO;
 import by.training.finalproject.dao.SQLStatement;
 import by.training.finalproject.dao.SQLTableLabel;
-import by.training.finalproject.entity.Address;
-import by.training.finalproject.entity.Request;
-import by.training.finalproject.entity.User;
-import by.training.finalproject.entity.UserRole;
+import by.training.finalproject.entity.*;
 import by.training.finalproject.exception.DAOException;
 import org.apache.log4j.Logger;
 
@@ -32,6 +30,8 @@ public class RequestDAOImpl extends AbstractCommonDAO<Request> implements Reques
     public static RequestDAOImpl getInstance() {
         return DAO;
     }
+
+
 
     @Override
     public List<Request> readRequestsByUserId(int userId) throws DAOException {
@@ -125,7 +125,9 @@ public class RequestDAOImpl extends AbstractCommonDAO<Request> implements Reques
                 .buildDepartureDate(resultSet.getDate(SQLTableLabel.REQUEST_DEPARTURE.getLabel()).toLocalDate())
                 .buildCapacity(resultSet.getInt(SQLTableLabel.REQUEST_CAPACITY.getLabel()))
                 .buildRequestId(resultSet.getInt(SQLTableLabel.REQUEST_ID.getLabel()))
+                .buildStatus(resultSet.getInt(SQLTableLabel.REQUEST_STATUS_ID.getLabel()))
                 .buildReservationUser(buildUser(resultSet))
                 .build();
     }
+
 }

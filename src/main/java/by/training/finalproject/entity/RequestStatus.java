@@ -1,19 +1,27 @@
 package by.training.finalproject.entity;
 
+import org.apache.commons.lang3.StringUtils;
+
 public enum RequestStatus {
-    APPROVED(2),
-    PAID(1),
-    PROCESS(3),
-    UNSUPPORTED(0);
+    APPROVED(2, "approved"),
+    PAID(1, "paid"),
+    PROCESS(3, "process"),
+    UNSUPPORTED(0, "unsupported");
 
     private int id;
+    private String text;
 
-    RequestStatus(int id) {
+    RequestStatus(int id, String text) {
         this.id = id;
+        this.text = text;
     }
 
     public int getId() {
         return id;
+    }
+
+    public String getText() {
+        return text;
     }
 
     public static RequestStatus getStatusById(int id) {
