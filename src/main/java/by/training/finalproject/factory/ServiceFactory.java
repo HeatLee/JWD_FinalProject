@@ -17,6 +17,11 @@ public enum ServiceFactory {
     public AddressService getAddressService() {
         return AddressServiceImpl.getInstance();
     }
+
+    public ResponseService getResponseService() {
+        return ResponseServiceImpl.getInstance();
+    }
+
     public RoomService getRoomService() {
         return RoomServiceImpl.getInstance();
     }
