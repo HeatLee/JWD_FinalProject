@@ -4,4 +4,25 @@
 
 <web-app>
   <display-name>Final Project</display-name>
+
+  <filter-mapping>
+    <filter-name>EncodingFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+  <filter-mapping>
+    <filter-name>CommandCheckingFilter</filter-name>
+    <url-pattern>/controller</url-pattern>
+  </filter-mapping>
+  <filter-mapping>
+    <filter-name>UserSessionFilter</filter-name>
+    <url-pattern>/controller</url-pattern>
+  </filter-mapping>
+  <filter-mapping>
+    <filter-name>AdminSessionFilter</filter-name>
+    <url-pattern>/controller</url-pattern>
+  </filter-mapping>
+  <filter-mapping>
+    <filter-name>PageRedirectSecurityFilter</filter-name>
+    <url-pattern>/page/*</url-pattern>
+  </filter-mapping>
 </web-app>
