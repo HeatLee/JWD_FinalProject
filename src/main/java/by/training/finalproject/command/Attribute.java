@@ -7,7 +7,8 @@ public enum Attribute {
     REQUEST("request"),
     ROOM_LIST("rooms"),
     HOTEL_LIST("hotelList"),
-    RESPONSE("userResponse");
+    RESPONSE("userResponse"),
+    LANGUAGE("language");
 
     private String attribute;
 

@@ -1,12 +1,17 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html; charset=UTF-8" language="java"
          pageEncoding="UTF-8" %>
 <%@ page isELIgnored="false" %>
+<c:if test="${not empty sessionScope.language}">
+    <fmt:setLocale value="${sessionScope.language}"/>
+</c:if>
+<fmt:setBundle basename="locale"/>
 <!doctype html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Response information</title>
+    <title><fmt:message key="response_info.title"/></title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css"
@@ -46,13 +51,17 @@
         <div class="card card-block w-50 mx-auto">
             <div class="row">
                 <div class="col-md-6">
-                    <label for="checkInDate">CheckIn</label>
+                    <label for="checkInDate">
+                        <fmt:message key="response_info.info.check_in"/>
+                    </label>
                     <input class="form-control" id="checkInDate" type="date"
                            value="${userResponse.request.checkIn}"
                            readonly/>
                 </div>
                 <div class="col-md-6">
-                    <label for="departureDate">Departure</label>
+                    <label for="departureDate">
+                        <fmt:message key="response_info.info.departure"/>
+                    </label>
                     <input class="form-control" id="departureDate" type="date"
                            value="${userResponse.request.departure}"
                            readonly/>
@@ -60,13 +69,17 @@
             </div>
             <div class="row" style="align-content: center;">
                 <div class="col-md-3">
-                    <label for="hotelName">Hotel name</label>
+                    <label for="hotelName">
+                        <fmt:message key="response_info.info.hotel_name"/>
+                    </label>
                     <input class="form-control" type="text" id="hotelName"
                            value="${userResponse.room.hotel.name}"
                            readonly>
                 </div>
                 <div class="col-md-4 align-self-end">
-                    <label for="hotelStars">Stars</label>
+                    <label for="hotelStars">
+                        <fmt:message key="response_info.info.stars"/>
+                    </label>
                     <div class="rating-box" id="hotelStars">
                         <div class="ratings">
                             <span class="fa fa-star-o"></span>
@@ -82,13 +95,17 @@
             </div>
             <div class="row">
                 <div class="col-md-8 offset-md-4">
-                    <label for="address">Address</label>
+                    <label for="address">
+                        <fmt:message key="response_info.info.address"/>
+                    </label>
                     <input id="address" class="form-control" type="text"
                            value="">
                 </div>
             </div>
             <div class="col-md-3 align-self-end">
-                <label for="roomPrice">Room price</label>
+                <label for="roomPrice">
+                    <fmt:message key="response_info.info.room_price"/>
+                </label>
                 <div class="input-group mb-3">
                     <input class="form-control" type="text" id="roomPrice" value="${userResponse.room.price}"
                            readonly>

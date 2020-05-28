@@ -1,7 +1,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html; charset=UTF-8" language="java"
          pageEncoding="UTF-8" %>
 <%@ page isELIgnored="false" %>
+<c:if test="${not empty sessionScope.language}">
+    <fmt:setLocale value="${sessionScope.language}"/>
+</c:if>
+<fmt:setBundle basename="locale"/>
 <html>
 <head>
     <title>Sign Up</title>
@@ -18,13 +23,17 @@
         <a class="navbar-brand" href="controller?command=INDEX_PAGE">Bookin</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav"
                 aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="oi oi-menu"></span> Menu
+            <span class="oi oi-menu"></span>
         </button>
         <div class="collapse navbar-collapse" id="ftco-nav">
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item active"><a href="index.jsp" class="nav-link">Home</a></li>
+                <li class="nav-item active"><a href="index.jsp" class="nav-link">
+                    <fmt:message key="nav_bar.home"/>
+                </a></li>
                 <li class="nav-item cta"><a href="controller?command=SIGN_IN_PAGE"
-                                            class="nav-link"><span>Sign In</span></a></li>
+                                            class="nav-link"><span>
+                    <fmt:message key="nav_bar.sign_in"/>
+                </span></a></li>
             </ul>
         </div>
     </div>
@@ -34,38 +43,26 @@
         <div class="d-flex align-items-center flex-column justify-content-center h-100  text-white">
             <form class="needs-validation" action="controller" method="POST" novalidate>
                 <div>
-                    <label for="login">Login</label>
+                    <label for="login">
+                        <fmt:message key="sign_up.form.login"/>
+                    </label>
                     <input type="text" class="form-control form-control-lg" id="login" name="login" required>
-                    <div class="valid-feedback">
-                        Looks good!
-                    </div>
-                    <div class="invalid-feedback">
-                        Please enter a login.
-                    </div>
                 </div>
                 <div>
-                    <label for="email">Email</label>
+                    <label for="email">
+                        <fmt:message key="sign_up.form.email"/>
+                    </label>
                     <input type="email" class="form-control form-control-lg" id="email" name="email" required>
-                    <div class="valid-feedback">
-                        Looks good!
-                    </div>
-                    <div class="invalid-feedback">
-                        Please enter a email.
-                    </div>
                 </div>
                 <div>
-                    <label for="password">Password</label>
+                    <label for="password">
+                        <fmt:message key="sign_in.form.password"/>
+                    </label>
                     <input type="password" class="form-control form-control-lg" id="password" name="password" required>
-                    <div class="valid-feedback">
-                        Looks good!
-                    </div>
-                    <div class="invalid-feedback">
-                        Please enter a password.
-                    </div>
                 </div>
                 <p> ${err} </p>
                 <button class="btn btn-primary" type="submit" name="command" id="command" value="SIGN_UP">
-                    Register
+                    <fmt:message key="sign_up.form.submit_button"/>
                 </button>
             </form>
         </div>
