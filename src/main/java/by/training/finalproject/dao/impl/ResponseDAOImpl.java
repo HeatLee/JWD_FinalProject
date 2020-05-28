@@ -16,17 +16,30 @@ import java.sql.SQLException;
 
 public class ResponseDAOImpl extends AbstractCommonDAO<Response> implements ResponseDAO<Response> {
     private static final Logger LOGGER = Logger.getLogger(ResponseDAOImpl.class);
-    private static final ResponseDAO<Response> DAO;
-
-    static {
-        DAO = new ResponseDAOImpl();
-    }
+    private static final ResponseDAO<Response> INSTANCE = new ResponseDAOImpl();
 
     private ResponseDAOImpl() {
     }
 
     public static ResponseDAO<Response> getInstance() {
-        return DAO;
+        return INSTANCE;
+    }
+
+    @Override
+    public Response getResponseByRequestId(int id) throws DAOException {
+        try (Connection connection = POOL.getConnection()) {
+            PreparedStatement statement = connection.prepareStatement(SQLStatement.GET_RESPONSE_BY_REQUEST_ID.getQuery());
+            statement.setInt(1, id);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    return buildEntity(resultSet);
+                }
+            }
+            return null;
+        } catch (SQLException e) {
+            LOGGER.warn(e);
+            throw new DAOException(e);
+        }
     }
 
     @Override
@@ -58,6 +71,79 @@ public class ResponseDAOImpl extends AbstractCommonDAO<Response> implements Resp
             LOGGER.warn(e);
             throw new DAOException();
         }
+    }
+
+    @Override
+    public void add(Response response) throws DAOException {
+        Connection connection = POOL.getConnection();
+        try {
+            PreparedStatement addResponseStatement = buildAddPreparedStatement(connection, response);
+            PreparedStatement updateRequestStatusStatement = buildUpdateRequestStatusStatement(connection,
+                    response.getRequest().getId(), RequestStatus.APPROVED);
+            PreparedStatement updateRoomStatusStatement = buildUpdateRoomStatusStatement(connection,
+                    response.getRoom().getId(), RoomStatus.RESERVED);
+            connection.setAutoCommit(false);
+            addResponseStatement.executeUpdate();
+            updateRequestStatusStatement.executeUpdate();
+            updateRoomStatusStatement.executeUpdate();
+            connection.commit();
+        } catch (SQLException e) {
+            rollbackTransaction(connection);
+            LOGGER.warn(e);
+            throw new DAOException(e);
+        } finally {
+            closeConnection(connection);
+        }
+    }
+
+    @Override
+    public void delete(Response response) throws DAOException {
+        Connection connection = POOL.getConnection();
+        try {
+            connection.setAutoCommit(false);
+            PreparedStatement deleteResponseStatement = buildDeletePreparedStatement(connection, response);
+            PreparedStatement deleteRequestStatement = buildDeleteRequestStatement(connection,
+                    response.getRequest().getId());
+            PreparedStatement updateRoomStatusStatement = buildUpdateRoomStatusStatement(connection,
+                    response.getRoom().getId(), RoomStatus.AVAILABLE);
+            deleteResponseStatement.executeUpdate();
+            updateRoomStatusStatement.executeUpdate();
+            deleteRequestStatement.executeUpdate();
+            connection.commit();
+        } catch (SQLException e) {
+            rollbackTransaction(connection);
+            LOGGER.warn(e);
+            throw new DAOException(e);
+        } finally {
+            closeConnection(connection);
+        }
+    }
+
+    private PreparedStatement buildDeleteRequestStatement(Connection connection,
+                                                          int requestId) throws SQLException {
+        PreparedStatement statement = connection.prepareStatement(SQLStatement.DELETE_REQUEST.getQuery());
+        statement.setInt(1, requestId);
+        return statement;
+    }
+
+    private PreparedStatement buildUpdateRoomStatusStatement(Connection connection,
+                                                             int roomId,
+                                                             RoomStatus newStatus) throws SQLException {
+        PreparedStatement statement = connection.prepareStatement(SQLStatement.UPDATE_ROOM_STATUS.getQuery());
+        int index = 0;
+        statement.setInt(++index, newStatus.getStatusId());
+        statement.setInt(++index, roomId);
+        return statement;
+    }
+
+    private PreparedStatement buildUpdateRequestStatusStatement(Connection connection,
+                                                                int requestId,
+                                                                RequestStatus newStatus) throws SQLException {
+        PreparedStatement statement = connection.prepareStatement(SQLStatement.UPDATE_REQUEST_STATUS.getQuery());
+        int index = 0;
+        statement.setInt(++index, newStatus.getId());
+        statement.setInt(++index, requestId);
+        return statement;
     }
 
     @Override
@@ -125,6 +211,7 @@ public class ResponseDAOImpl extends AbstractCommonDAO<Response> implements Resp
                 .buildCapacity(resultSet.getInt(SQLTableLabel.REQUEST_CAPACITY.getLabel()))
                 .buildRequestId(resultSet.getInt(SQLTableLabel.REQUEST_ID.getLabel()))
                 .buildReservationUser(buildUser(resultSet))
+                .buildStatus(resultSet.getInt(SQLTableLabel.REQUEST_STATUS_ID.getLabel()))
                 .build();
     }
 

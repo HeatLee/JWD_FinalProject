@@ -26,4 +26,8 @@ public enum DAOFactory {
     public ResponseDAO<Response> getResponseDAO() {
         return ResponseDAOImpl.getInstance();
     }
+
+    public HotelDAO<Hotel> getHotelDAO() {
+        return HotelDAOImpl.getInstance();
+    }
 }

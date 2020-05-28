@@ -297,7 +297,112 @@ public enum SQLStatement {
             "WHERE response.hotel_room_id = ?\n" +
             "  AND response.request_id = request.request_id\n" +
             "  AND request.reservation_user_id = reservation_user.user_id\n" +
-            "  AND request.address_id = address.address_id;");
+            "  AND request.address_id = address.address_id;"),
+    UPDATE_REQUEST_STATUS("UPDATE bd_jwd_reservation.request t SET t.status_id = ? WHERE t.request_id = ?"),
+    UPDATE_ROOM_STATUS("UPDATE bd_jwd_reservation.hotel_room t SET t.room_status_id = ? WHERE t.hotel_room_id = ?"),
+    GET_RESPONSE_BY_REQUEST_ID("SELECT response.response_id,\n" +
+            "       request.request_id,\n" +
+            "       request.stars,\n" +
+            "       request.capacity,\n" +
+            "       request.check_in,\n" +
+            "       request.departure,\n" +
+            "       request.status_id,\n" +
+            "       reservation_user.user_id,\n" +
+            "       reservation_user.login,\n" +
+            "       reservation_user.password,\n" +
+            "       reservation_user.email,\n" +
+            "       reservation_user.user_role_id,\n" +
+            "       hotel_room.hotel_room_id,\n" +
+            "       hotel_room.room_capacity,\n" +
+            "       hotel_room.room_status_id,\n" +
+            "       hotel_room.room_price,\n" +
+            "       hotel.hotel_id,\n" +
+            "       hotel.stars,\n" +
+            "       hotel.hotel_name,\n" +
+            "       address.address_id,\n" +
+            "       address.town,\n" +
+            "       address.country\n" +
+            "FROM bd_jwd_reservation.response,\n" +
+            "     bd_jwd_reservation.request,\n" +
+            "     bd_jwd_reservation.hotel_room,\n" +
+            "     bd_jwd_reservation.address,\n" +
+            "     bd_jwd_reservation.reservation_user,\n" +
+            "     bd_jwd_reservation.hotel\n" +
+            "WHERE request.request_id = response.request_id\n" +
+            "  AND response.hotel_room_id = hotel_room.hotel_room_id\n" +
+            "  AND request.address_id = address.address_id\n" +
+            "  AND request.reservation_user_id = reservation_user.user_id\n" +
+            "  AND hotel.address_id = address.address_id\n" +
+            "  AND hotel_room.hotel_id = hotel.hotel_id\n" +
+            "  AND request.request_id = ?"),
+    DELETE_RESPONSE_BY_REQUEST_ID("DELETE FROM bd_jwd_reservation.response WHERE request_id = ?"),
+    ADD_HOTEL("INSERT INTO bd_jwd_reservation.hotel (hotel_name, stars, address_id) VALUES (?, ?, ?)"),
+    DELETE_HOTEL_BY_ID("DELETE FROM bd_jwd_reservation.hotel WHERE hotel_id = ?"),
+    UPDATE_HOTEL("UPDATE bd_jwd_reservation.hotel t " +
+            "SET t.hotel_name = ?, t.stars = ?, t.address_id = ? " +
+            "WHERE t.hotel_id = ?"),
+    GET_HOTEL_BY_ID("SELECT hotel.hotel_id,\n" +
+            "       hotel.hotel_name,\n" +
+            "       hotel.stars,\n" +
+            "       address.address_id,\n" +
+            "       address.country,\n" +
+            "       address.town\n" +
+            "FROM bd_jwd_reservation.hotel,\n" +
+            "     bd_jwd_reservation.address\n" +
+            "WHERE hotel.address_id = address.address_id AND\n" +
+            "      hotel.hotel_id = ?"),
+    GET_ALL_HOTELS("SELECT hotel.hotel_id,\n" +
+            "       hotel.hotel_name,\n" +
+            "       hotel.stars,\n" +
+            "       address.address_id,\n" +
+            "       address.country,\n" +
+            "       address.town\n" +
+            "FROM bd_jwd_reservation.hotel,\n" +
+            "     bd_jwd_reservation.address\n" +
+            "WHERE hotel.address_id = address.address_id"),
+    GET_ROOMS_BY_HOTEL_ID("SELECT hotel_room.hotel_room_id,\n" +
+            "       hotel_room.room_price,\n" +
+            "       hotel_room.room_status_id,\n" +
+            "       hotel_room.room_capacity,\n" +
+            "       hotel.hotel_id,\n" +
+            "       hotel.stars,\n" +
+            "       hotel.hotel_name,\n" +
+            "       address.address_id,\n" +
+            "       address.country,\n" +
+            "       address.town\n" +
+            "FROM bd_jwd_reservation.hotel_room,\n" +
+            "     bd_jwd_reservation.hotel,\n" +
+            "     bd_jwd_reservation.address\n" +
+            "WHERE hotel.hotel_id = ? AND\n" +
+            "      hotel.address_id = address.address_id AND\n" +
+            "      hotel_room.hotel_id = hotel.hotel_id"),
+    GET_HOTEL_BY_NAME("SELECT hotel.hotel_id,\n" +
+            "       hotel.hotel_name,\n" +
+            "       hotel.stars,\n" +
+            "       address.address_id,\n" +
+            "       address.country,\n" +
+            "       address.town\n" +
+            "FROM bd_jwd_reservation.hotel,\n" +
+            "     bd_jwd_reservation.address\n" +
+            "WHERE hotel_name = ? AND\n" +
+            "      hotel.address_id = address.address_id"),
+    GET_ROOM_FROM_RESPONSE_BY_REQUEST_ID("SELECT hotel_room.hotel_room_id,\n" +
+            "       hotel_room.room_price,\n" +
+            "       hotel_room.room_status_id,\n" +
+            "       hotel.hotel_id,\n" +
+            "       hotel.hotel_name,\n" +
+            "       hotel.stars,\n" +
+            "       address.address_id,\n" +
+            "       address.country,\n" +
+            "       address.town\n" +
+            "FROM bd_jwd_reservation.response,\n" +
+            "     bd_jwd_reservation.hotel_room,\n" +
+            "     bd_jwd_reservation.hotel,\n" +
+            "     bd_jwd_reservation.address\n" +
+            "WHERE response.hotel_room_id = hotel_room.hotel_room_id\n" +
+            "  AND response.request_id = ?\n" +
+            "  AND hotel_room.hotel_id = hotel.hotel_id\n" +
+            "  AND hotel.address_id = address.address_id");
 
     private String query;
 
