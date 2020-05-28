@@ -15,28 +15,36 @@ import org.apache.log4j.Logger;
 import java.util.List;
 
 public class RequestServiceImpl implements RequestService {
+    private static final Logger LOGGER = Logger.getLogger(RequestServiceImpl.class);
     private static final RequestDAO<Request> REQUEST_DAO = DAOFactory.INSTANCE.getRequestDAO();
-    
-    private static final RequestServiceImpl SERVICE;
-
-    static {
-        SERVICE = new RequestServiceImpl();
-    }
-
-    private final Logger LOGGER = Logger.getLogger(RequestServiceImpl.class);
-    private final Validator<Request> validator = new RequestValidator();
+    private static final Validator<Request> REQUEST_VALIDATOR = new RequestValidator();
+    private static final RequestServiceImpl INSTANCE = new RequestServiceImpl();
 
     private RequestServiceImpl() {
     }
 
     public static RequestServiceImpl getInstance() {
-        return SERVICE;
+        return INSTANCE;
+    }
+
+    @Override
+    public void deleteRequestById(int id) throws ServiceException {
+        try{
+            Request request = getRequestById(id);
+            if (request == null) {
+                throw new ServiceException("No such request.");
+            }
+            REQUEST_DAO.delete(request);
+        } catch (DAOException e) {
+            LOGGER.warn(e);
+            throw new ServiceException("Server error.");
+        }
     }
 
     @Override
     public Request addRequest(Request request) throws ServiceException {
         try {
-            validator.validate(request);
+            REQUEST_VALIDATOR.validate(request);
             REQUEST_DAO.add(request);
             return request;
         } catch (ValidatorException e) {

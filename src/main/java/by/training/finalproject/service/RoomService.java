@@ -10,4 +10,10 @@ public interface RoomService {
     List<Room> sortRoomsByRequest(Request request) throws ServiceException;
 
     Room getRoomById(int id) throws ServiceException;
+
+    List<Room> getAllRooms() throws ServiceException;
+
+    List<Room> getRoomsByHotel(int hotelId) throws ServiceException;
+
+    void addHotelRoom(Room newRoom) throws ServiceException;
 }

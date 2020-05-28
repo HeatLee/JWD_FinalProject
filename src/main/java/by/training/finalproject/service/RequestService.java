@@ -16,4 +16,6 @@ public interface RequestService {
     Request getRequestById(int id) throws ServiceException;
 
     void updateRequestStatusById(int id, RequestStatus status) throws ServiceException;
+
+    void deleteRequestById(int id) throws ServiceException;
 }
