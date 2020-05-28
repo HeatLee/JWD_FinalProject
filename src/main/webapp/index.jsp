@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="ctg" uri="customTags" %>
 <%@ page contentType="text/html; charset=UTF-8" language="java"
          pageEncoding="UTF-8" %>
 <%@ page isELIgnored="false" %>
@@ -27,6 +28,15 @@
             color: #ddda11;
             float: left;
             cursor: pointer;
+        }
+
+        .footer {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 60px;
+            line-height: 60px;
+            background-color: #f5f5f5;
         }
     </style>
 </head>
@@ -102,6 +112,11 @@
         </div>
     </div>
 </c:if>
+<footer class="footer">
+    <div class="container">
+        <span class="text-muted"> <ctg:copyrightTag/></span>
+    </div>
+</footer>
 <script>
     document.readyState;
     const stars = document.querySelector(".ratings").children;
