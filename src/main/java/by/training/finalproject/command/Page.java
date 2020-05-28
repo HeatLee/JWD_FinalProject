@@ -6,7 +6,8 @@ public enum Page {
     SIGN_IN("signIn.jsp"),
     PROFILE("user/profile.jsp"),
     ADMIN_PAGE("admin/adminPage.jsp"),
-    CREATE_RESPONSE_PAGE("admin/createResponse.jsp");
+    CREATE_RESPONSE_PAGE("admin/createResponse.jsp"),
+    ROOM_INFO("roomInfo.jsp");
 
     private String value;
 

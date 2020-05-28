@@ -1,5 +1,3 @@
-
-
 const stars=document.querySelector(".ratings").children;
 const ratingValue=document.querySelector("#rating-value");
 let index;

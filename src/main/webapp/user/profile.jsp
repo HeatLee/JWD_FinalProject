@@ -7,6 +7,7 @@
 <head>
     <title>Profile</title>
     <jsp:include page="../include/header.jsp"/>
+    <script src='https://kit.fontawesome.com/a076d05399.js'></script>
 </head>
 <body>
 <jsp:include page="../include/nav.jsp"/>
@@ -55,6 +56,7 @@
                             <th scope="col">Stars</th>
                             <th scope="col">Country</th>
                             <th scope="col">Town</th>
+                            <th scope="col">Action</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -67,6 +69,28 @@
                                 <td>${item.stars}</td>
                                 <td>${item.address.country}</td>
                                 <td>${item.address.town}</td>
+                                <c:if test="${item.status.id == 3}">
+                                    <td>
+                                        <form action="controller" method="post">
+                                            <input type="hidden" name="requestId" value="${item.id}"/>
+                                            <button style="width: 53px" class="btn btn-danger" type="submit"
+                                                    name="command" value="DELETE_USER_REQUEST">
+                                                <i style='font-size:24px' class='fas'>&#xf2ed;</i>
+                                            </button>
+                                        </form>
+                                    </td>
+                                </c:if>
+                                <c:if test="${item.status.id == 2}">
+                                    <td>
+                                        <form action="controller" method="post">
+                                            <input type="hidden" name="requestId" value="${item.id}"/>
+                                            <button class="btn btn-success" type="submit"
+                                                    name="command" value="GET_USER_RESPONSE">
+                                                <i style='font-size:24px' class='fas'>&#xf594;</i>
+                                            </button>
+                                        </form>
+                                    </td>
+                                </c:if>
                             </tr>
                         </c:forEach>
                         </tbody>
@@ -76,18 +100,23 @@
                     <div class="container py-2">
                         <div class="row my-2" style="padding-left: 50px;">
                             <div class="col-lg-8 order-lg-1 personal-info">
-                                <form role="form" action="controller" method="post">
+                                <form class="needs-validation" role="form" action="controller" method="post" novalidate>
                                     <div class="form-group row">
                                         <label class="col-lg-3 col-form-label form-control-label">Login</label>
                                         <div class="col-lg-9">
-                                            <input class="form-control" type="text" value="${user.login}" name="login"/>
+                                            <input class="form-control" type="text" value="${user.login}" name="login" required/>
+                                            <div class="invalid-feedback">
+                                                Please enter valid login.
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label class="col-lg-3 col-form-label form-control-label">Email</label>
                                         <div class="col-lg-9">
-                                            <input class="form-control" type="email" value="${user.email}"
-                                                   name="email"/>
+                                            <input class="form-control" type="email" value="${user.email}" name="email" required/>
+                                            <div class="invalid-feedback">
+                                                Please enter valid email.
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="form-group row">
@@ -111,9 +140,9 @@
                                     </div>
                                     <div class="form-group row">
                                         <div class="col-lg-9 ml-auto text-right">
-                                            <button type="submit" class="btn btn-primary" name="command"
+                                            <button type="submit" class="btn btn-success" name="command"
                                                     value="CHANGE_USER">
-                                                Save Changes
+                                                <i style='font-size:24px' class='far'>&#xf0c7;</i>
                                             </button>
                                         </div>
                                     </div>
@@ -130,6 +159,23 @@
         </div>
     </div>
 </div>
+<script type="text/javascript">
+    (function () {
+        'use strict';
+        window.addEventListener('load', function () {
+            var forms = document.getElementsByClassName('needs-validation');
+            var validation = Array.prototype.filter.call(forms, function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (form.checkValidity() === false) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+            });
+        }, false);
+    })();
+</script>
 
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
         integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"

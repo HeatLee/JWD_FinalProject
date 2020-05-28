@@ -5,7 +5,9 @@ public enum Attribute {
     ERR_PARAMETER("err"),
     REQUEST_LIST("requestList"),
     REQUEST("request"),
-    ROOM_LIST("rooms");
+    ROOM_LIST("rooms"),
+    HOTEL_LIST("hotelList"),
+    RESPONSE("userResponse");
 
     private String attribute;
 

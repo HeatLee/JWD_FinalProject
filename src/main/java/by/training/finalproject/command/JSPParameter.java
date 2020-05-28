@@ -14,7 +14,10 @@ public enum JSPParameter {
     CHECK_IN("checkIn"),
     DEPARTURE("departure"),
     REQUEST_ID("requestId"),
-    ROOM_ID("roomId");
+    ROOM_ID("roomId"),
+    HOTEL_ID("hotelId"),
+    HOTEL_NAME("hotelName"),
+    PRICE("roomPrice");
 
     private String value;
 
