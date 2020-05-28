@@ -14,31 +14,26 @@ import org.apache.log4j.Logger;
 
 public class UserServiceImpl implements UserService {
     private static final Logger LOGGER = Logger.getLogger(UserServiceImpl.class);
-    private static final Validator<User> VALIDATOR = new UserValidator();
-    private static final UserDAO<User> FACTORY = DAOFactory.INSTANCE.getUserDAO();
-
-    private static final UserServiceImpl SERVICE;
-
-    static {
-        SERVICE = new UserServiceImpl();
-    }
+    private static final Validator<User> USER_VALIDATOR = new UserValidator();
+    private static final UserDAO<User> USER_DAO = DAOFactory.INSTANCE.getUserDAO();
+    private static final UserServiceImpl INSTANCE = new UserServiceImpl();
 
     private UserServiceImpl() {
 
     }
 
     public static UserServiceImpl getInstance() {
-        return SERVICE;
+        return INSTANCE;
     }
 
     @Override
     public void signUp(User user) throws ServiceException {
         try {
-            VALIDATOR.validate(user);
-            if (FACTORY.readByLogin(user.getLogin()) != null) {
+            USER_VALIDATOR.validate(user);
+            if (USER_DAO.readByLogin(user.getLogin()) != null) {
                 throw new ServiceException("Login is already taken.");
             }
-            if (FACTORY.readByEmail(user.getEmail()) != null) {
+            if (USER_DAO.readByEmail(user.getEmail()) != null) {
                 throw new ServiceException("Email is already taken");
             }
             DAOFactory.INSTANCE.getUserDAO().add(user);
@@ -55,7 +50,7 @@ public class UserServiceImpl implements UserService {
     public User signIn(User user) throws ServiceException {
         try {
             User dbUser;
-            if ((dbUser = FACTORY.readByLogin(user.getLogin())) == null) {
+            if ((dbUser = USER_DAO.readByLogin(user.getLogin())) == null) {
                 throw new ServiceException("User with such login does not exist");
             }
             if (!StringUtils.equals(dbUser.getPassword(), user.getPassword())) {
@@ -72,14 +67,14 @@ public class UserServiceImpl implements UserService {
     @Override
     public void editUser(User user) throws ServiceException {
         try {
-            VALIDATOR.validate(user);
-            if (FACTORY.readByLogin(user.getLogin()) != null) {
+            USER_VALIDATOR.validate(user);
+            if (USER_DAO.readByLogin(user.getLogin()) != null) {
                 throw new ServiceException("Login is already taken.");
             }
-            if (FACTORY.readByEmail(user.getEmail()) != null) {
+            if (USER_DAO.readByEmail(user.getEmail()) != null) {
                 throw new ServiceException("Email is already taken");
             }
-            FACTORY.update(user);
+            USER_DAO.update(user);
         } catch (DAOException e) {
             LOGGER.warn(e);
             throw new ServiceException("Server error. Sorry for that :(");
@@ -92,7 +87,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public String getPasswordByLogin(String login) throws ServiceException {
         try {
-            String password = FACTORY.readPasswordByLogin(login);
+            String password = USER_DAO.readPasswordByLogin(login);
             if (password == null) {
                 throw new ServiceException("Invalid login");
             }

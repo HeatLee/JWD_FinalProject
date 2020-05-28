@@ -16,19 +16,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class UserDAOImpl extends AbstractCommonDAO<User> implements UserDAO<User> {
-
     private static final Logger LOGGER = Logger.getLogger(UserDAOImpl.class);
-    private static final UserDAO<User> DAO;
-
-    static {
-        DAO = new UserDAOImpl();
-    }
+    private static final UserDAO<User> INSTANCE = new UserDAOImpl();
 
     private UserDAOImpl() {
     }
 
     public static UserDAO<User> getInstance() {
-        return DAO;
+        return INSTANCE;
     }
 
     @Override

@@ -19,12 +19,16 @@
                     <li class="nav-item cta"><a href="controller?command=SIGN_IN_PAGE"
                                                 class="nav-link"><span>Sign In</span></a></li>
                 </c:if>
-                <c:if test="${user != null}">
+                <c:if test="${user != null and user.userRole == 'USER'}">
                     <li class="nav-link"><a href="controller?command=PROFILE_PAGE"><span>${user.login}</span></a></li>
+                </c:if>
+                <c:if test="${user != null and user.userRole == 'ADMIN'}">
+                    <li class="nav-link"><a href="controller?command=ADMIN_PAGE"><span>${user.login}</span></a></li>
+                </c:if>
+                <c:if test="${user != null}">
                     <li class="nav-item cta"><a href="controller?command=SIGN_OUT"
                                                 class="nav-link"><span>Sign Out</span></a></li>
                 </c:if>
-
             </ul>
         </div>
     </div>

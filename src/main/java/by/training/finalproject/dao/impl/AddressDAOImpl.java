@@ -16,16 +16,13 @@ import java.sql.SQLException;
 
 public class AddressDAOImpl extends AbstractCommonDAO<Address> implements AddressDAO<Address> {
     private static final Logger LOGGER = Logger.getLogger(AddressDAOImpl.class);
-    private static final AddressDAO<Address> DAO;
-    static {
-        DAO = new AddressDAOImpl();
-    }
+    private static final AddressDAO<Address> INSTANCE = new AddressDAOImpl();
 
     private AddressDAOImpl() {
     }
 
     public static AddressDAO<Address> getInstance() {
-        return DAO;
+        return INSTANCE;
     }
 
     @Override

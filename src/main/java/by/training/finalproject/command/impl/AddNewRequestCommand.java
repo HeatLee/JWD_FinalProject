@@ -27,7 +27,7 @@ public class AddNewRequestCommand implements Command {
     private final static AddressService ADDRESS_SERVICE = ServiceFactory.INSTANCE.getAddressService();
 
     private static final String NO_SUCH_ADDRESS_MESSAGE = "No such address available";
-    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
@@ -47,9 +47,9 @@ public class AddNewRequestCommand implements Command {
                     .buildAddress(address)
                     .buildCapacity(Integer.parseInt(request.getParameter(JSPParameter.CAPACITY.getValue())))
                     .buildCheckInDate(
-                            LocalDate.parse(request.getParameter(JSPParameter.CHECK_IN.getValue()), formatter))
+                            LocalDate.parse(request.getParameter(JSPParameter.CHECK_IN.getValue()), FORMATTER))
                     .buildDepartureDate(
-                            LocalDate.parse(request.getParameter(JSPParameter.DEPARTURE.getValue()), formatter))
+                            LocalDate.parse(request.getParameter(JSPParameter.DEPARTURE.getValue()), FORMATTER))
                     .buildStatus(RequestStatus.PROCESS.getId())
                     .buildStars(Integer.parseInt(request.getParameter(JSPParameter.STARS.getValue())))
                     .build();

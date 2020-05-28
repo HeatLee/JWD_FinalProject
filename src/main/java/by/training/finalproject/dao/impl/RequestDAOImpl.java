@@ -20,22 +20,19 @@ import java.util.List;
 
 public class RequestDAOImpl extends AbstractCommonDAO<Request> implements RequestDAO<Request> {
     private static final Logger LOGGER = Logger.getLogger(RequestDAOImpl.class);
-
-    private static final RequestDAOImpl DAO;
-    static {
-        DAO = new RequestDAOImpl();
-    }
+    private static final RequestDAOImpl INSTANCE = new RequestDAOImpl();
 
     private RequestDAOImpl() {
     }
 
     public static RequestDAOImpl getInstance() {
-        return DAO;
+        return INSTANCE;
     }
+
 
     @Override
     public List<Request> readRequestsByUserId(int userId) throws DAOException {
-        try (Connection connection = POOL.getConnection()){
+        try (Connection connection = POOL.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(SQLStatement.GET_REQUEST_BY_USER_ID.getQuery());
             statement.setInt(1, userId);
             try (ResultSet resultSet = statement.executeQuery()) {
@@ -50,6 +47,7 @@ public class RequestDAOImpl extends AbstractCommonDAO<Request> implements Reques
             throw new DAOException(e);
         }
     }
+
     @Override
     protected PreparedStatement buildAddPreparedStatement(Connection connection, Request entity) throws SQLException {
         PreparedStatement statement = connection.prepareStatement(SQLStatement.ADD_REQUEST.getQuery());
@@ -89,7 +87,7 @@ public class RequestDAOImpl extends AbstractCommonDAO<Request> implements Reques
     @Override
     protected PreparedStatement buildReadByIdPreparedStatement(Connection connection, int id) throws SQLException {
         PreparedStatement statement = connection.prepareStatement(SQLStatement.GET_REQUEST_BY_ID.getQuery());
-        statement.setInt(1,id);
+        statement.setInt(1, id);
         return statement;
     }
 
@@ -106,7 +104,7 @@ public class RequestDAOImpl extends AbstractCommonDAO<Request> implements Reques
                 .build();
     }
 
-    private User buildUser(ResultSet resultSet) throws SQLException{
+    private User buildUser(ResultSet resultSet) throws SQLException {
         return new UserBuilder()
                 .buildLogin(resultSet.getString(SQLTableLabel.USER_LOGIN.getLabel()))
                 .buildPassword(resultSet.getString(SQLTableLabel.USER_PASSWORD.getLabel()))
@@ -125,7 +123,9 @@ public class RequestDAOImpl extends AbstractCommonDAO<Request> implements Reques
                 .buildDepartureDate(resultSet.getDate(SQLTableLabel.REQUEST_DEPARTURE.getLabel()).toLocalDate())
                 .buildCapacity(resultSet.getInt(SQLTableLabel.REQUEST_CAPACITY.getLabel()))
                 .buildRequestId(resultSet.getInt(SQLTableLabel.REQUEST_ID.getLabel()))
+                .buildStatus(resultSet.getInt(SQLTableLabel.REQUEST_STATUS_ID.getLabel()))
                 .buildReservationUser(buildUser(resultSet))
                 .build();
     }
+
 }

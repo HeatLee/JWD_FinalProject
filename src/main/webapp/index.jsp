@@ -7,8 +7,22 @@
 <head>
     <jsp:include page="include/header.jsp"/>
     <title>Bookin</title>
-    <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="css/starRating.css">
+    <link rel="stylesheet" type="text/css"
+          href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style type="text/css">
+        .rating-box {
+            margin: auto;
+            display: flex;
+            flex-direction: row;
+            align-content: center;
+        }
+
+        .rating-box .ratings .fa {
+            color: #ddda11;
+            float: left;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
 <jsp:include page="include/nav.jsp"/>
@@ -21,68 +35,117 @@
     </div>
 </c:if>
 <c:if test="${user.userRole.id == 3}">
-<div class="container">
-    <div class="row">
-        <div class="col-md-12">
-            <form action="controller" method="post">
-                <div class="row" style="background-color: hsl(210, 10%, 23%); color: hsl(0, 0%, 100%);">
-                    <div class="form-group col">
-                        <label for="checkIn">Check In</label>
-                        <div class="form-field">
-                            <input id="checkIn" type="date" class="form-control" name="checkIn">
-                        </div>
-                    </div>
-                    <div class="form-group col">
-                        <label for="departure">Departure</label>
-                        <div class="form-field">
-                            <input id="departure" type="date" class="form-control" name="departure">
-                        </div>
-                    </div>
-                    <div class="form-group col">
-                        <div class="form-field">
-                            <label for="country">Country</label>
-                            <input id="country" type="text" class="form-control" name="country">
-                        </div>
-                    </div>
-                    <div class="form-group col">
-                        <label for="town">Town</label>
-                        <div class="form-field">
-                            <input id="town" type="text" class="form-control" name="town">
-                        </div>
-                    </div>
-                    <div class="form-group col">
-                        <label for="capacity">Capacity</label>
-                        <div class="form-field">
-                            <input id="capacity" type="number" class="form-control" name="capacity">
-                        </div>
-                    </div>
-                    <div class="rating-box">
-                        <div class="ratings">
-                            <span class="fa fa-star-o"></span>
-                            <span class="fa fa-star-o"></span>
-                            <span class="fa fa-star-o"></span>
-                            <span class="fa fa-star-o"></span>
-                            <span class="fa fa-star-o"></span>
-                        </div>
-                        <input type="hidden" id="rating-value" name="stars">
-                    </div>
-                    <div class="col-lg align-self-end">
-                        <div class="form-group">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <form class="needs-validation" action="controller" method="post" novalidate>
+                    <div class="row" style="background-color: hsl(210, 10%, 23%); color: hsl(0, 0%, 100%);">
+                        <div class="form-group col">
+                            <label for="checkIn">Check In</label>
                             <div class="form-field">
-                                <button type="submit" class="btn btn-primary" name="command"
-                                        value="SEND_REQUEST">
-                                    Send Request
-                                </button>
+                                <input id="checkIn" type="date" class="form-control" name="checkIn" required>
+                            </div>
+                        </div>
+                        <div class="form-group col">
+                            <label for="departure">Departure</label>
+                            <div class="form-field">
+                                <input id="departure" type="date" class="form-control" name="departure" required>
+                            </div>
+                        </div>
+                        <div class="form-group col">
+                            <div class="form-field">
+                                <label for="country">Country</label>
+                                <input id="country" type="text" class="form-control" name="country" required>
+                            </div>
+                        </div>
+                        <div class="form-group col">
+                            <label for="town">Town</label>
+                            <div class="form-field">
+                                <input id="town" type="text" class="form-control" name="town" required>
+                            </div>
+                        </div>
+                        <div class="form-group col">
+                            <label for="capacity">Capacity</label>
+                            <div class="form-field">
+                                <input id="capacity" type="number" class="form-control" name="capacity" required>
+                            </div>
+                        </div>
+                        <div class="rating-box">
+                            <div class="ratings">
+                                <span class="fa fa-star-o"></span>
+                                <span class="fa fa-star-o"></span>
+                                <span class="fa fa-star-o"></span>
+                                <span class="fa fa-star-o"></span>
+                                <span class="fa fa-star-o"></span>
+                            </div>
+                            <input type="hidden" id="rating-value" name="stars">
+                        </div>
+                        <div class="col-lg align-self-end">
+                            <div class="form-group">
+                                <div class="form-field">
+                                    <button type="submit" class="btn btn-primary" name="command"
+                                            value="SEND_REQUEST">
+                                        Send Request
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </form>
+                </form>
+            </div>
         </div>
     </div>
-</div>
 </c:if>
-<script src="js/starRating.js"></script>
+<script>
+    document.readyState;
+    const stars = document.querySelector(".ratings").children;
+    const ratingValue = document.querySelector("#rating-value");
+    let index;
+
+    for (let i = 0; i < stars.length; i++) {
+        stars[i].addEventListener("mouseover", function () {
+            for (let j = 0; j < stars.length; j++) {
+                stars[j].classList.remove("fa-star");
+                stars[j].classList.add("fa-star-o");
+            }
+            for (let j = 0; j <= i; j++) {
+                stars[j].classList.remove("fa-star-o");
+                stars[j].classList.add("fa-star");
+            }
+        });
+        stars[i].addEventListener("click", function () {
+            ratingValue.value = i + 1;
+            index = i;
+        });
+        stars[i].addEventListener("mouseout", function () {
+
+            for (let j = 0; j < stars.length; j++) {
+                stars[j].classList.remove("fa-star");
+                stars[j].classList.add("fa-star-o");
+            }
+            for (let j = 0; j <= index; j++) {
+                stars[j].classList.remove("fa-star-o");
+                stars[j].classList.add("fa-star");
+            }
+        })
+    }
+
+    (function () {
+        'use strict';
+        window.addEventListener('load', function () {
+            var forms = document.getElementsByClassName('needs-validation');
+            var validation = Array.prototype.filter.call(forms, function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (form.checkValidity() === false) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+            });
+        }, false);
+    })();
+</script>
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
         integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
         crossorigin="anonymous"></script>

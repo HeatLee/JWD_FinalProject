@@ -9,26 +9,21 @@ import by.training.finalproject.service.AddressService;
 import org.apache.log4j.Logger;
 
 public class AddressServiceImpl implements AddressService {
-    private final static Logger LOGGER = Logger.getLogger(AddressServiceImpl.class);
-    private static final AddressService SERVICE;
-
-    static {
-        SERVICE = new AddressServiceImpl();
-    }
-
-    private final AddressDAO<Address> dao = DAOFactory.INSTANCE.getAddressDAO();
+    private static final Logger LOGGER = Logger.getLogger(AddressServiceImpl.class);
+    private static final AddressService INSTANCE = new AddressServiceImpl();
+    private static final AddressDAO<Address> ADDRESS_DAO = DAOFactory.INSTANCE.getAddressDAO();
 
     private AddressServiceImpl() {
     }
 
     public static AddressService getInstance() {
-        return SERVICE;
+        return INSTANCE;
     }
 
     @Override
     public Address getAddressByFullData(Address address) throws ServiceException {
         try {
-            return dao.getAddressByFullData(address.getCountry(), address.getTown());
+            return ADDRESS_DAO.getAddressByFullData(address.getCountry(), address.getTown());
         } catch (DAOException e) {
             LOGGER.warn(e);
             throw new ServiceException(e.getMessage());
@@ -38,7 +33,7 @@ public class AddressServiceImpl implements AddressService {
     @Override
     public boolean isContains(Address address) throws ServiceException {
         try {
-            return dao.getAddressByFullData(address.getCountry(), address.getTown()) != null;
+            return ADDRESS_DAO.getAddressByFullData(address.getCountry(), address.getTown()) != null;
         } catch (DAOException e) {
             LOGGER.warn(e);
             throw new ServiceException(e.getMessage());

@@ -10,4 +10,6 @@ public interface RoomDAO<T> extends CommonDAO<T> {
     List<Room> readByRoomStatus(RoomStatus roomStatus) throws DAOException;
 
     List<Room> readByCapacity(int capacity) throws DAOException;
+
+    List<Room> readByHotelId(int hotelId) throws DAOException;
 }

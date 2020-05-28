@@ -22,19 +22,33 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RoomDAOImpl extends AbstractCommonDAO<Room> implements RoomDAO<Room> {
-
     private static final Logger LOGGER = Logger.getLogger(RoomDAOImpl.class);
+    private static final RoomDAO<Room> INSTANCE = new RoomDAOImpl();
 
-    private static final RoomDAO<Room> DAO;
-    static {
-        DAO = new RoomDAOImpl();
+    private RoomDAOImpl() {
     }
 
     public static RoomDAO<Room> getInstance() {
-        return DAO;
+        return INSTANCE;
     }
 
-    private RoomDAOImpl() {
+    @Override
+    public List<Room> readByHotelId(int hotelId) throws DAOException {
+        try(Connection connection = POOL.getConnection()){
+            try(PreparedStatement statement = connection.prepareStatement(
+                    SQLStatement.GET_ROOMS_BY_HOTEL_ID.getQuery())) {
+                statement.setInt(1, hotelId);
+                List<Room> roomList = new ArrayList<>();
+                ResultSet resultSet = statement.executeQuery();
+                while (resultSet.next()) {
+                    roomList.add(buildEntity(resultSet));
+                }
+                return roomList;
+            }
+        } catch (SQLException e) {
+            LOGGER.warn(e);
+            throw new DAOException(e);
+        }
     }
 
     @Override

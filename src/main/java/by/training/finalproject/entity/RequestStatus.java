@@ -1,19 +1,17 @@
 package by.training.finalproject.entity;
 
 public enum RequestStatus {
-    APPROVED(2),
-    PAID(1),
-    PROCESS(3),
-    UNSUPPORTED(0);
+    APPROVED(2, "approved"),
+    PAID(1, "paid"),
+    PROCESS(3, "process"),
+    UNSUPPORTED(0, "unsupported");
 
     private int id;
+    private String text;
 
-    RequestStatus(int id) {
+    RequestStatus(int id, String text) {
         this.id = id;
-    }
-
-    public int getId() {
-        return id;
+        this.text = text;
     }
 
     public static RequestStatus getStatusById(int id) {
@@ -33,5 +31,13 @@ public enum RequestStatus {
             }
         }
         return false;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getText() {
+        return text;
     }
 }

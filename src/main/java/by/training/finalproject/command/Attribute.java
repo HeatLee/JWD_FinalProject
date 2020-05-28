@@ -3,7 +3,11 @@ package by.training.finalproject.command;
 public enum Attribute {
     USER("user"),
     ERR_PARAMETER("err"),
-    REQUEST_LIST("requestList");
+    REQUEST_LIST("requestList"),
+    REQUEST("request"),
+    ROOM_LIST("rooms"),
+    HOTEL_LIST("hotelList"),
+    RESPONSE("userResponse");
 
     private String attribute;
 
