@@ -1,10 +1,16 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html; charset=UTF-8" language="java"
          pageEncoding="UTF-8" %>
 <%@ page isELIgnored="false" %>
+<c:if test="${not empty sessionScope.language}">
+    <fmt:setLocale value="${sessionScope.language}"/>
+</c:if>
+<fmt:setBundle basename="locale"/>
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
+    <meta charset="utf-8">
     <jsp:include page="include/header.jsp"/>
     <title>Bookin</title>
     <link rel="stylesheet" type="text/css"
@@ -41,31 +47,31 @@
                 <form class="needs-validation" action="controller" method="post" novalidate>
                     <div class="row" style="background-color: hsl(210, 10%, 23%); color: hsl(0, 0%, 100%);">
                         <div class="form-group col">
-                            <label for="checkIn">Check In</label>
+                            <label for="checkIn"><fmt:message key="add_request_form.check_in.label"/></label>
                             <div class="form-field">
                                 <input id="checkIn" type="date" class="form-control" name="checkIn" required>
                             </div>
                         </div>
                         <div class="form-group col">
-                            <label for="departure">Departure</label>
+                            <label for="departure"><fmt:message key="add_request_form.departure.label"/></label>
                             <div class="form-field">
                                 <input id="departure" type="date" class="form-control" name="departure" required>
                             </div>
                         </div>
                         <div class="form-group col">
                             <div class="form-field">
-                                <label for="country">Country</label>
+                                <label for="country"><fmt:message key="add_request_form.country.label"/></label>
                                 <input id="country" type="text" class="form-control" name="country" required>
                             </div>
                         </div>
                         <div class="form-group col">
-                            <label for="town">Town</label>
+                            <label for="town"><fmt:message key="add_request_form.town.label"/></label>
                             <div class="form-field">
                                 <input id="town" type="text" class="form-control" name="town" required>
                             </div>
                         </div>
                         <div class="form-group col">
-                            <label for="capacity">Capacity</label>
+                            <label for="capacity"><fmt:message key="add_request_form.capacity.label"/></label>
                             <div class="form-field">
                                 <input id="capacity" type="number" class="form-control" name="capacity" required>
                             </div>
@@ -85,7 +91,7 @@
                                 <div class="form-field">
                                     <button type="submit" class="btn btn-primary" name="command"
                                             value="SEND_REQUEST">
-                                        Send Request
+                                        <fmt:message key="add_request_form.submit_button"/>
                                     </button>
                                 </div>
                             </div>

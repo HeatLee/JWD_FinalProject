@@ -1,11 +1,16 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html; charset=UTF-8" language="java"
          pageEncoding="UTF-8" %>
 <%@ page isELIgnored="false" %>
+<c:if test="${not empty sessionScope.language}">
+    <fmt:setLocale value="${sessionScope.language}"/>
+</c:if>
+<fmt:setBundle basename="locale"/>
 <!doctype html>
 <html lang="en">
 <head>
-    <title>Admin Page</title>
+    <title><fmt:message key="admin_page.title"/></title>
     <jsp:include page="../include/header.jsp"/>
     <link rel="stylesheet" type="text/css"
           href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -42,34 +47,37 @@
                 <li role="presentation" class="nav-item">
                     <a href="#request" role="tab"
                        data-target="#request" data-toggle="tab"
-                       class="nav-link active">Request List</a>
+                       class="nav-link active"><fmt:message key="admin_page.request_list.tab_title"/></a>
                 </li>
                 <li role="presentation" class="nav-item">
                     <a href="#hotels" role="tab"
                        data-target="#hotels" data-toggle="tab"
-                       class="nav-link">Hotel List</a>
+                       class="nav-link"><fmt:message key="admin_page.hotel_list.tab_title"/></a>
                 </li>
                 <li role="presentation" class="nav-item">
                     <a href="#rooms" role="tab"
                        data-target="#rooms" data-toggle="tab"
-                       class="nav-link">Room List</a>
+                       class="nav-link"><fmt:message key="admin_page.room_list.tab_title"/></a>
                 </li>
             </ul>
             <div class="tab-content">
                 <div role="tabpanel" class="tab-pane active" id="request">
-                    <h5>User requests</h5>
+                    <h5><fmt:message key="admin_page.request_list.table.title"/></h5>
                     <table class="table table-hover table-striped">
                         <thead class="thead-dark">
                         <tr>
-                            <th scope="col">Check In</th>
-                            <th scope="col">Departure</th>
-                            <th scope="col">Capacity</th>
-                            <th scope="col">Stars</th>
-                            <th scope="col">Country</th>
-                            <th scope="col">Town</th>
-                            <th scope="col">User</th>
-                            <th scope="col">Status</th>
-                            <th scope="col">Action</th>
+                            <th scope="col"><fmt:message
+                                    key="admin_page.request_list.table.check_in.column.title"/></th>
+                            <th scope="col"><fmt:message
+                                    key="admin_page.request_list.table.departure.column.title"/></th>
+                            <th scope="col"><fmt:message
+                                    key="admin_page.request_list.table.capacity.column.title"/></th>
+                            <th scope="col"><fmt:message key="admin_page.request_list.table.stars.column.title"/></th>
+                            <th scope="col"><fmt:message key="admin_page.request_list.table.country.column.title"/></th>
+                            <th scope="col"><fmt:message key="admin_page.request_list.table.town.column.title"/></th>
+                            <th scope="col"><fmt:message key="admin_page.request_list.table.user.column.title"/></th>
+                            <th scope="col"><fmt:message key="admin_page.request_list.table.status.column.title"/></th>
+                            <th scope="col"><fmt:message key="admin_page.request_list.table.action.column.title"/></th>
                         </tr>
                         </thead>
                         <tbody>
@@ -89,7 +97,8 @@
                                             <input type="hidden" name="requestId" value="${item.id}"/>
                                             <button type="submit" class="btn btn-success" name="command"
                                                     value="CREATE_RESPONSE_PAGE">
-                                                Response
+                                                <fmt:message
+                                                        key="admin_page.request_list.table.action.column.response"/>
                                             </button>
                                         </form>
                                     </td>
@@ -100,7 +109,7 @@
                                             <input type="hidden" name="requestId" value="${item.id}"/>
                                             <button type="submit" class="btn btn-danger" name="command"
                                                     value="DELETE_RESPONSE">
-                                                Delete
+                                                <fmt:message key="admin_page.request_list.table.action.column.delete"/>
                                             </button>
                                         </form>
                                     </td>
@@ -114,10 +123,10 @@
                     <table class="table table-hover table-striped">
                         <thead class="thead-dark">
                         <tr>
-                            <th>Hotel name</th>
-                            <th>Stars</th>
-                            <th>Country</th>
-                            <th>Town</th>
+                            <th><fmt:message key="admin_page.hotel_list.table.name.column.title"/></th>
+                            <th><fmt:message key="admin_page.hotel_list.table.stars.column.title"/></th>
+                            <th><fmt:message key="admin_page.hotel_list.table.country.column.title"/></th>
+                            <th><fmt:message key="admin_page.hotel_list_list.table.town.column.title"/></th>
                         </tr>
                         </thead>
                         <tbody>
@@ -132,7 +141,7 @@
                         </tbody>
                     </table>
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addHotel">
-                        Add new hotel
+                        <fmt:message key="admin_page.hotel_list.add_button"/>
                     </button>
                 </div>
                 <div role="tabpanel" class="tab-pane" id="rooms">
@@ -147,7 +156,7 @@
                                 <div class="input-group-append">
                                     <button class="btn btn-outline-secondary" type="submit" name="command"
                                             value="SHOW_HOTEL_ROOMS">
-                                        Show rooms
+                                        <fmt:message key="admin_page.room_list.show_button"/>
                                     </button>
                                 </div>
                             </div>
@@ -155,7 +164,7 @@
                         <div class="form-group col-md-3">
                             <button type="button" class="btn btn-primary"
                                     data-toggle="modal" data-target="#addRoom">
-                                Add new room to hotel
+                                <fmt:message key="admin_page.room_list.add_button"/>
                             </button>
                         </div>
                     </form>
@@ -165,14 +174,23 @@
                                 <div class="card">
                                     <img src="https://i.ibb.co/6ZsKz8N/room-Blank.png" class="card-img-top" alt="Room">
                                     <div class="card-body">
-                                        <h5 class="card-title">Room in ${room.hotel.name}</h5>
-                                        <p>Hotels stars amount - ${room.hotel.stars}</p>
+                                        <h5 class="card-title">
+                                            <fmt:message
+                                                key="admin_page.room_list.room_info.pre_hotel_name"/> ${room.hotel.name}
+                                        </h5>
+                                        <p>
+                                            <fmt:message key="admin_page.room_list.room_info.room_info.stars_amount"/>${room.hotel.stars}
+                                        </p>
                                     </div>
                                     <ul class="list-group list-group-flush">
-                                        <li class="list-group-item">Capacity: ${room.capacity}</li>
-                                        <li class="list-group-item">Placed
-                                            in ${room.hotel.address.country}.${room.hotel.address.town}</li>
-                                        <li class="list-group-item">Price: ${room.price}</li>
+                                        <li class="list-group-item">
+                                            <fmt:message key="admin_page.room_list.room_info.room_info.capacity"/> ${room.capacity}
+                                        </li>
+                                        <li class="list-group-item">
+                                            <fmt:message key="admin_page.room_list.room_info.room_info.address"/> ${room.hotel.address.country}.${room.hotel.address.town}</li>
+                                        <li class="list-group-item">
+                                            <fmt:message key="admin_page.room_list.room_info.room_info.price"/> ${room.price}
+                                        </li>
                                     </ul>
                                 </div>
                             </div>
@@ -189,7 +207,7 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="addRoomTitle">Add new room</h5>
+                <h5 class="modal-title" id="addRoomTitle"><fmt:message key="add_room.modal.title"/></h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -221,10 +239,12 @@
                     </select>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                        <fmt:message key="add_room.modal.close"/>
+                    </button>
                     <button type="submit" class="btn btn-primary"
                             name="command" value="ADD_ROOM">
-                        Save changes
+                        <fmt:message key="add_room.modal.apply"/>
                     </button>
                 </div>
             </form>
@@ -238,7 +258,9 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="addHotelTitle">New hotel</h5>
+                <h5 class="modal-title" id="addHotelTitle">
+                    <fmt:message key="add_hotel.modal.title"/>
+                </h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -247,11 +269,15 @@
                 <div class="modal-body">
                     <div class="form-row">
                         <div class="form-group col-md-9">
-                            <label for="hotelName">Name</label>
+                            <label for="hotelName">
+                                <fmt:message key="add_hotel.modal.input.name"/>
+                            </label>
                             <input type="text" class="form-control" id="hotelName" name="hotelName" required>
                         </div>
                         <div class="form-group col-md-3">
-                            <label>Hotel stars</label>
+                            <label>
+                                <fmt:message key="add_hotel.modal.input.stars"/>
+                            </label>
                             <div class="rating-box">
                                 <div class="ratings">
                                     <span class="fa fa-star-o"></span>
@@ -266,19 +292,25 @@
                     </div>
                     <div class="form-row">
                         <div class="form-group col-md-6">
-                            <label for="hotelCountry">Country</label>
+                            <label for="hotelCountry">
+                                <fmt:message key="add_hotel.modal.input.country"/>
+                            </label>
                             <input type="text" class="form-control" id="hotelCountry" name="country" required>
                         </div>
                         <div class="form-group col-md-6">
-                            <label for="hotelTown">Town</label>
+                            <label for="hotelTown">
+                                <fmt:message key="add_hotel.modal.input.town"/>
+                            </label>
                             <input type="text" class="form-control" id="hotelTown" name="town" required>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                        <fmt:message key="add_hotel.modal.close"/>
+                    </button>
                     <button type="submit" class="btn btn-primary" name="command" value="ADD_NEW_HOTEL">
-                        Save changes
+                        <fmt:message key="add_hotel.modal.apply"/>
                     </button>
                 </div>
             </form>

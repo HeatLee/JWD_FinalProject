@@ -1,11 +1,16 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html; charset=UTF-8" language="java"
          pageEncoding="UTF-8" %>
 <%@ page isELIgnored="false" %>
+<c:if test="${not empty sessionScope.language}">
+    <fmt:setLocale value="${sessionScope.language}"/>
+</c:if>
+<fmt:setBundle basename="locale"/>
 <!doctype html>
 <html lang="en">
 <head>
-    <title>Profile</title>
+    <title><fmt:message key="profile_page.title"/></title>
     <jsp:include page="../include/header.jsp"/>
     <script src='https://kit.fontawesome.com/a076d05399.js'></script>
 </head>
@@ -25,23 +30,29 @@
         <div class="col-lg-8 order-lg-2">
             <ul class="nav nav-tabs">
                 <li class="nav-item">
-                    <a href="#profile" data-target="#profile" data-toggle="tab" class="nav-link active">Profile</a>
+                    <a href="#profile" data-target="#profile" data-toggle="tab" class="nav-link active">
+                        <fmt:message key="profile_page.profile.tab.title"/>
+                    </a>
                 </li>
                 <li class="nav-item">
                     <a href="#requests" data-target="#requests" data-toggle="tab"
-                       class="nav-link">Requests</a>
+                       class="nav-link"><fmt:message key="profile_page.request.tab.title"/></a>
                 </li>
                 <li class="nav-item">
-                    <a href="#edit" data-target="#edit" data-toggle="tab" class="nav-link">Edit user info</a>
+                    <a href="#edit" data-target="#edit" data-toggle="tab" class="nav-link">
+                        <fmt:message key="profile_page.edit.tab.title"/>
+                    </a>
                 </li>
             </ul>
             <div class="tab-content py-4">
                 <div class="tab-pane active" id="profile">
-                    <h5 class="mb-3">User Profile</h5>
+                    <h5 class="mb-3">
+                        <fmt:message key="profile_page.profile.tab.info.title"/>
+                    </h5>
                     <div class="row">
                         <div class="col">
-                            <h2>Login <h6>${user.login}</h6></h2>
-                            <h2>Email <h6>${user.email}</h6></h2>
+                            <h2><fmt:message key="profile_page.profile.tab.login_info.title"/> <h6>${user.login}</h6></h2>
+                            <h2><fmt:message key="profile_page.profile.tab.email_info.title"/> <h6>${user.email}</h6></h2>
                         </div>
                     </div>
                 </div>
@@ -50,13 +61,13 @@
                         <thead class="thead-dark">
                         <tr>
                             <th scope="col">#</th>
-                            <th scope="col">Check In</th>
-                            <th scope="col">Departure</th>
-                            <th scope="col">Capacity</th>
-                            <th scope="col">Stars</th>
-                            <th scope="col">Country</th>
-                            <th scope="col">Town</th>
-                            <th scope="col">Action</th>
+                            <th scope="col"><fmt:message key="profile_page.request.tab.table.head_title.check_in"/></th>
+                            <th scope="col"><fmt:message key="profile_page.request.tab.table.head_title.departure"/></th>
+                            <th scope="col"><fmt:message key="profile_page.request.tab.table.head_title.capacity"/></th>
+                            <th scope="col"><fmt:message key="profile_page.request.tab.table.head_title.stars"/></th>
+                            <th scope="col"><fmt:message key="profile_page.request.tab.table.head_title.country"/></th>
+                            <th scope="col"><fmt:message key="profile_page.request.tab.table.head_title.town"/></th>
+                            <th scope="col"><fmt:message key="profile_page.request.tab.table.head_title.action"/></th>
                         </tr>
                         </thead>
                         <tbody>
@@ -102,38 +113,41 @@
                             <div class="col-lg-8 order-lg-1 personal-info">
                                 <form class="needs-validation" role="form" action="controller" method="post" novalidate>
                                     <div class="form-group row">
-                                        <label class="col-lg-3 col-form-label form-control-label">Login</label>
+                                        <label class="col-lg-3 col-form-label form-control-label">
+                                            <fmt:message key="profile_page.edit.tab.form.login.label"/>
+                                        </label>
                                         <div class="col-lg-9">
                                             <input class="form-control" type="text" value="${user.login}" name="login" required/>
-                                            <div class="invalid-feedback">
-                                                Please enter valid login.
-                                            </div>
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="col-lg-3 col-form-label form-control-label">Email</label>
+                                        <label class="col-lg-3 col-form-label form-control-label">
+                                            <fmt:message key="profile_page.edit.tab.form.email.label"/>
+                                        </label>
                                         <div class="col-lg-9">
                                             <input class="form-control" type="email" value="${user.email}" name="email" required/>
-                                            <div class="invalid-feedback">
-                                                Please enter valid email.
-                                            </div>
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="col-lg-3 col-form-label form-control-label">Old Password</label>
+                                        <label class="col-lg-3 col-form-label form-control-label">
+                                            <fmt:message key="profile_page.edit.tab.form.old_password.label"/>
+                                        </label>
                                         <div class="col-lg-9">
                                             <input class="form-control" type="password" name="oldPassword"/>
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="col-lg-3 col-form-label form-control-label">Password</label>
+                                        <label class="col-lg-3 col-form-label form-control-label">
+                                            <fmt:message key="profile_page.edit.tab.form.password.label"/>
+                                        </label>
                                         <div class="col-lg-9">
                                             <input class="form-control" type="password" name="password"/>
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="col-lg-3 col-form-label form-control-label">Confirm
-                                            password</label>
+                                        <label class="col-lg-3 col-form-label form-control-label">
+                                            <fmt:message key="profile_page.edit.tab.form.confirm_password.label"/>
+                                        </label>
                                         <div class="col-lg-9">
                                             <input class="form-control" type="password" name="passwordConf"/>
                                         </div>
