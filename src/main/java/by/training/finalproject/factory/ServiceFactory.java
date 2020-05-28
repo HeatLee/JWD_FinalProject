@@ -25,4 +25,8 @@ public enum ServiceFactory {
     public RoomService getRoomService() {
         return RoomServiceImpl.getInstance();
     }
+
+    public HotelService getHotelService() {
+        return HotelServiceImpl.getInstance();
+    }
 }

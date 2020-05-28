@@ -22,36 +22,36 @@ public class Hotel {
         this.address = new Address(hotel.address);
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public int getId() {
         return id;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {
         return name;
     }
 
-    public void setStars(int stars) {
-        this.stars = stars;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public int getStars() {
         return stars;
     }
 
-    public void setAddress(Address address) {
-        this.address = address;
+    public void setStars(int stars) {
+        this.stars = stars;
     }
 
     public Address getAddress() {
         return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
     }
 
     @Override

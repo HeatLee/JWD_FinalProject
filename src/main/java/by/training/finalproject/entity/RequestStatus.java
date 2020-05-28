@@ -1,7 +1,5 @@
 package by.training.finalproject.entity;
 
-import org.apache.commons.lang3.StringUtils;
-
 public enum RequestStatus {
     APPROVED(2, "approved"),
     PAID(1, "paid"),
@@ -14,14 +12,6 @@ public enum RequestStatus {
     RequestStatus(int id, String text) {
         this.id = id;
         this.text = text;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public String getText() {
-        return text;
     }
 
     public static RequestStatus getStatusById(int id) {
@@ -41,5 +31,13 @@ public enum RequestStatus {
             }
         }
         return false;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getText() {
+        return text;
     }
 }
