@@ -93,7 +93,7 @@
                                 </c:if>
                                 <c:if test="${item.status.id == 2}">
                                     <td>
-                                        <form action="controller" method="post">
+                                        <form action="controller" method="get">
                                             <input type="hidden" name="requestId" value="${item.id}"/>
                                             <button class="btn btn-success" type="submit"
                                                     name="command" value="GET_USER_RESPONSE">
