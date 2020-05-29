@@ -93,7 +93,7 @@
                                 <td>${item.status.text}</td>
                                 <c:if test="${item.status.id == 3}">
                                     <td>
-                                        <form action="controller" method="post">
+                                        <form action="controller" method="get">
                                             <input type="hidden" name="requestId" value="${item.id}"/>
                                             <button type="submit" class="btn btn-success" name="command"
                                                     value="CREATE_RESPONSE_PAGE">
@@ -145,7 +145,7 @@
                     </button>
                 </div>
                 <div role="tabpanel" class="tab-pane" id="rooms">
-                    <form class="form-row" action="controller" method="POST">
+                    <form class="form-row" action="controller" method="get">
                         <div class="form-group col-md-9">
                             <div class="input-group" id="hotelSelect">
                                 <select class="custom-select" name="hotelId">
